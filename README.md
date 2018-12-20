@@ -1,20 +1,18 @@
-# JsonML
+# BookLab::SML
 
-http://jsonml.org
-
-JsonML-related tools for losslessly converting between XML/HTML and JSON for Ruby.
+*SML* is a document format base on [JsonML](http://jsonml.org).
 
 ## Usage
 
 ```rb
-gem "jsonml"
+gem "booklab-sml"
 ```
 
 and then run `bundle install`
 
 ```rb
 $ ml = %(["html", { lang: "en" }, ["body", ["p", "Hello world"]]])
-$ puts JsonML.parse(ml)
+$ puts BookLab::SML.parse(ml)
 => <html lang="en"><body><p>Hello world</p></body></html>
 ```
 

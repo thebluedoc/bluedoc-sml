@@ -1,6 +1,6 @@
 require "minitest/autorun"
 require "active_support"
-require "jsonml"
+require "booklab-sml"
 
 # Filter out Minitest backtrace while allowing backtrace from other libraries
 # to be shown.

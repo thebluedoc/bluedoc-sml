@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    jsonml (0.1.1)
+    booklab-sml (0.1.1)
       activesupport
 
 GEM
@@ -25,7 +25,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  jsonml!
+  booklab-sml!
   minitest
   rake
 
