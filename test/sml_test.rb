@@ -8,7 +8,7 @@ class BookLab::SML::Test < ActiveSupport::TestCase
   end
 
   test "complex" do
-    ml = read_file("sample.jsonml")
+    ml = read_file("sample.sml")
     html = BookLab::SML.parse(ml)
 
     assert_html_equal read_file("sample.html"), html
