@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module BookLab::SML::Rules
   class Math < Base
     def self.match?(node)
@@ -6,7 +8,6 @@ module BookLab::SML::Rules
 
     def self.to_html(node, opts = {})
       renderer = opts[:renderer]
-      config =
       attrs = attributes(node)
 
       svg_code = URI::encode(attrs[:code])

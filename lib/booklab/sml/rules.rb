@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module BookLab::SML
   module Rules
     def self.all

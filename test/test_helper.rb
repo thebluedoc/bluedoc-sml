@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "minitest/autorun"
 require "active_support"
 require "booklab-sml"
@@ -5,7 +7,6 @@ require "booklab-sml"
 # Filter out Minitest backtrace while allowing backtrace from other libraries
 # to be shown.
 Minitest.backtrace_filter = Minitest::BacktraceFilter.new
-
 
 class ActiveSupport::TestCase
   def read_file(fname)

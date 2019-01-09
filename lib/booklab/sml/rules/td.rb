@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module BookLab::SML::Rules
   class Td < Base
     def self.match?(node)

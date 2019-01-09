@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module BookLab::SML::Rules
   class File < Base
     class << self
@@ -9,7 +11,6 @@ module BookLab::SML::Rules
     end
 
     def self.to_html(node, opts = {})
-      renderer = opts[:renderer]
       attrs = attributes(node)
 
       return attrs[:name] if attrs[:src].blank?

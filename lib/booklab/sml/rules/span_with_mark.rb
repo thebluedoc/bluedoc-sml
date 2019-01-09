@@ -1,15 +1,17 @@
+# frozen_string_literal: true
+
 module BookLab::SML::Rules
   class SpanWithMark < Base
     MARKS = {
-      cd: ['<code>', '</code>'],
-      b: ['<strong>', '</strong>'],
-      i: ['<em>', '</em>'],
-      s: ['<del>', '</del>'],
-      u: ['<u>', '<u>'],
-      mt: ['$', '$'],
-      m: ['==', '=='],
-      sup: ['<sup>', '<sup>'],
-      sub: ['<sub>', '<sub>'],
+      cd: ["<code>", "</code>"],
+      b: ["<strong>", "</strong>"],
+      i: ["<em>", "</em>"],
+      s: ["<del>", "</del>"],
+      u: ["<u>", "</u>"],
+      mt: ["$", "$"],
+      m: ["==", "=="],
+      sup: ["<sup>", "</sup>"],
+      sub: ["<sub>", "</sub>"],
     }
 
 
@@ -32,7 +34,7 @@ module BookLab::SML::Rules
       MARKS.each_key do |key|
         if attrs[key] == 1
           mark = MARKS[key]
-          children = "#{mark.fiirst}#{children}#{mark.last}"
+          children = "#{mark.first}#{children}#{mark.last}"
         end
       end
 

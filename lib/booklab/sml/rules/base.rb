@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "escape_utils"
 
 module BookLab::SML::Rules
@@ -24,7 +26,7 @@ module BookLab::SML::Rules
     protected
 
       def self.styleize(style)
-        style.map { |k,v| "#{k}: #{v};" }.join(" ")
+        style.map { |k, v| "#{k}: #{v};" }.join(" ")
       end
   end
 end

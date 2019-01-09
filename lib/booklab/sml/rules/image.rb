@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module BookLab::SML::Rules
   class Image < Base
     def self.match?(node)
@@ -5,7 +7,6 @@ module BookLab::SML::Rules
     end
 
     def self.to_html(node, opts = {})
-      renderer = opts[:renderer]
       attrs = attributes(node)
 
       return attrs[:name] if attrs[:src].blank?

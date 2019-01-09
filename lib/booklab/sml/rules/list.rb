@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module BookLab::SML::Rules
   class List < Base
     def self.match?(node)
@@ -38,7 +40,7 @@ module BookLab::SML::Rules
         "text-align": text_align,
         "text-indent": text_indent ? "#{4 * INDENT_PX}px" : "0px",
         "padding-left": "#{indent_left * INDENT_PX}px"
-      }.map { |k,v| "#{k}: #{v};" }.join(" ")
+      }.map { |k, v| "#{k}: #{v};" }.join(" ")
 
       outs = []
       if opts[:prev] && tag_name(opts[:prev]) != "list"

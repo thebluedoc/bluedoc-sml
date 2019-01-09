@@ -1,4 +1,6 @@
-require 'test_helper'
+# frozen_string_literal: true
+
+require "test_helper"
 
 class BookLab::SML::Test < ActiveSupport::TestCase
   test "base to_html" do
@@ -11,7 +13,7 @@ class BookLab::SML::Test < ActiveSupport::TestCase
     ml = read_file("sample.sml")
     html = BookLab::SML.parse(ml)
 
-    puts html
+    # puts html
 
     assert_html_equal read_file("sample.html"), html
   end

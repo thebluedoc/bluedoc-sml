@@ -1,5 +1,7 @@
-require 'rouge'
-require 'rouge/plugins/redcarpet'
+# frozen_string_literal: true
+
+require "rouge"
+require "rouge/plugins/redcarpet"
 
 module BookLab::SML::Rules
   class Codeblock < Base
@@ -12,7 +14,6 @@ module BookLab::SML::Rules
     end
 
     def self.to_html(node, opts = {})
-      renderer = opts[:renderer]
       attrs = attributes(node)
 
       language = attrs[:language]

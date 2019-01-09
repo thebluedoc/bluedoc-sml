@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 module BookLab::SML
   module Utils
@@ -5,7 +6,7 @@ module BookLab::SML
 
     class_methods do
       def get_children(node)
-        has_attributes?(node) ? node[2..] : node[1..]
+        has_attributes?(node) ? node[2..-1] : node[1..-1]
       end
 
       def tag_name(node)

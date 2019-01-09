@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "active_support/concern"
 require "booklab/sml/version"
 require "booklab/sml/rules"

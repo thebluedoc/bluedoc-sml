@@ -1,4 +1,6 @@
-require 'test_helper'
+# frozen_string_literal: true
+
+require "test_helper"
 
 class BookLab::SML::RulesTest < ActiveSupport::TestCase
   test "root" do
@@ -123,7 +125,7 @@ class BookLab::SML::RulesTest < ActiveSupport::TestCase
     sml = %(["list",{"nid":"c50z4utzc9q","level":1,"pstyle":"paragraph","indent":{"firstline":0,"left":4},"type":"bulleted"},["span",{"t":1},["span",{"t":0},"First line"]]],["list",{"nid":"c50z4utzc9q","level":2,"pstyle":"paragraph","indent":{"firstline":0,"left":8},"type":"bulleted"},["span",{"t":1},["span",{"t":0},"Second line with indent 1"]]],["list",{"nid":"c50z4utzc9q","level":3,"pstyle":"paragraph","indent":{"firstline":0,"left":12},"type":"bulleted"},["span",{"t":1},["span",{"t":0},"Third line with 2 ident"]]],["list",{"nid":"c50z4utzc9q","level":2,"pstyle":"paragraph","indent":{"firstline":0,"left":8},"type":"bulleted"},["span",{"t":1},["span",{"t":0},"4th line"]]],["list",{"nid":"c50z4utzc9q","level":1,"pstyle":"paragraph","indent":{"firstline":0,"left":4},"type":"bulleted"},["span",{"t":1},["span",{"t":0},"5thline"]]],["p",{},["span",{"t":1},["span",{"t":0},""]]])
     html = %()
     out = BookLab::SML.parse(sml)
-    puts out
+    # puts out
     assert_equal html, out
   end
 
