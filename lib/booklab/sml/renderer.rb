@@ -20,11 +20,7 @@ module BookLab::SML
     def node_to_html(node, opts = {})
       opts[:renderer] = self
 
-      rule = BookLab::SML::Rules::all.find { |rule| rule.match?(node) }
-      if rule.blank?
-        rule = BookLab::SML::Rules::Base
-      end
-
+      rule = BookLab::SML::Rules::find_by_node(node)
       rule.to_html(node, opts)
     end
 
