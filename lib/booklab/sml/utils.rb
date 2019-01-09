@@ -13,7 +13,7 @@ module BookLab::SML
       end
 
       def attributes(node, add_if_mission:  false)
-        return node[1] if has_attributes?(node)
+        return node[1].deep_symbolize_keys if has_attributes?(node)
         return nil unless add_if_mission
 
         name = node.shift || ""

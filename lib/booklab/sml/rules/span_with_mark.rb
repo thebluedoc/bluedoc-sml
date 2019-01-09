@@ -14,7 +14,7 @@ module BookLab::SML::Rules
 
 
     def self.match?(node)
-      return false if tag_name(node) != "span"
+      return false unless tag_name(node) == "span"
       attrs = attributes(node)
       attrs[:t] == 0
     end

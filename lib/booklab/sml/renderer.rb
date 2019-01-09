@@ -29,7 +29,6 @@ module BookLab::SML
 
     def children_to_html(node)
       return node if node.is_a?(String)
-      puts "---- children_to_html: #{node}"
 
       children = self.class.get_children(node)
       children.each_with_index.map do |child, idx|
