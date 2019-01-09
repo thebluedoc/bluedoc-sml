@@ -36,7 +36,7 @@ module BookLab::SML
         prev_node = idx > 0 ? children[idx - 1] : nil
         next_node = idx < children.length ? children[idx + 1] : nil
 
-        node_to_html(child, { prev: prev_node, next: next_node })
+        node_to_html(child)
       end.join("")
     end
   end

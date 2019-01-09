@@ -10,11 +10,6 @@ module BookLab::SML::Rules
       include EscapeUtils
     end
 
-    TAG_TYPE_MAP = {
-      table: "table",
-      tr: "table-row",
-      tc: "table-cell"
-    }
 
     def self.match?(node)
       false
@@ -27,14 +22,9 @@ module BookLab::SML::Rules
     end
 
     protected
-      # tr -> table-row
-      def tag_to_type(tag_name)
-        TAG_TYPE_MAP[tag_name.to_sym]
-      end
 
-      # table-row -> tr
-      def type_to_tag(type)
-        TAG_TYPE_MAP.key(type).to_s
+      def self.styleize(style)
+        style.map { |k,v| "#{k}: #{v};" }.join(" ")
       end
   end
 end

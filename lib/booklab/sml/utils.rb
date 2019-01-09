@@ -5,7 +5,7 @@ module BookLab::SML
 
     class_methods do
       def get_children(node)
-        has_attributes?(node) ? [node[2]] : [node[1]]
+        has_attributes?(node) ? node[2..] : node[1..]
       end
 
       def tag_name(node)
@@ -30,7 +30,7 @@ module BookLab::SML
       end
 
       def attributes?(node)
-        return false if node.blank?
+        return false if node.nil?
         node.is_a?(Hash)
       end
 

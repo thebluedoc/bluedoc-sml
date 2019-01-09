@@ -1,5 +1,4 @@
 require 'test_helper'
-require "url"
 
 class BookLab::SML::RulesTest < ActiveSupport::TestCase
   test "root" do
@@ -115,8 +114,7 @@ class BookLab::SML::RulesTest < ActiveSupport::TestCase
     CODE
 
     sml = %(["plantuml", { code: "#{code}" }])
-    svg_code = URL::encode(code)
-    html = %(<img src="https://localhost:1020/svg/#{svg_code}" class="plantuml-image" />)
+    html = %(<img src="https://localhost:1020/svg/@startuml%20Alice%20-%3E%20Bob:%20test%20@enduml" class="plantuml-image" />)
     out = BookLab::SML.parse(sml, plantuml_service_host: "https://localhost:1020")
     assert_equal html, out
   end
@@ -126,6 +124,14 @@ class BookLab::SML::RulesTest < ActiveSupport::TestCase
     html = %()
     out = BookLab::SML.parse(sml)
     puts out
+    assert_equal html, out
+  end
+
+  test "table" do
+    sml = %(["root",{},["table",{"colsWidth":[60,60,60]},["tr",{},["tc",{"colSpan":1,"rowSpan":1},["p",{},["span",{"t":1},["span",{"t":0},"版本"]]]],["tc",{"colSpan":1,"rowSpan":1},["p",{},["span",{"t":1},["span",{"t":0},"功能"]]]],["tc",{"colSpan":1,"rowSpan":1},["p",{},["span",{"t":1},["span",{"t":0},"说明"]]]]],["tr",{},["tc",{"colSpan":1,"rowSpan":1},["p",{"jc":"left"},["span",{"t":1},["span",{"t":0},"v2.1.0"]]]],["tc",{"colSpan":1,"rowSpan":1},["p",{},["span",{"t":1},["span",{"t":0},"Hello world"]]]],["tc",{"colSpan":1,"rowSpan":1},["p",{},["span",{"t":1},["span",{"t":0},"2018.7.2"]]]]],["tr",{},["tc",{"colSpan":1,"rowSpan":1},["p",{},["span",{"t":1},["span",{"t":0},"v2.0.8"]]]],["tc",{"colSpan":1,"rowSpan":1},["p",{},["span",{"t":1},["span",{"t":0},"修复一处 crash"]]]],["tc",{"colSpan":1,"rowSpan":1},["p",{},["span",{"t":1},["span",{"t":0},"2018.5.21"]]]]]],["p",{},["span",{"t":1},["span",{"t":0},""]]]])
+    html = %(<table><tr><td><p>版本</p></td><td><p>功能</p></td><td><p>说明</p></td></tr><tr><td><p>v2.1.0</p></td><td><p>Hello world</p></td><td><p>2018.7.2</p></td></tr><tr><td><p>v2.0.8</p></td><td><p>修复一处 crash</p></td><td><p>2018.5.21</p></td></tr></table><p></p>)
+    out = BookLab::SML.parse(sml)
+
     assert_equal html, out
   end
 end
