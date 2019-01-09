@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    booklab-sml (0.1.0)
+    booklab-sml (0.2.0)
       activesupport
       escape_utils
       rouge

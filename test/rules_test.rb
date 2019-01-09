@@ -104,7 +104,7 @@ class BookLab::SML::RulesTest < ActiveSupport::TestCase
 
   test "math" do
     sml = %(["math", { code: "x^2 + y = z" }])
-    html = %(<img className="tex-image" src="https://localhost:4010/svg?tex=x%5E2%20+%20y%20=%20z">)
+    html = %(<img class="tex-image" src="https://localhost:4010/svg?tex=x%5E2%20+%20y%20=%20z">)
     assert_html_equal html, BookLab::SML.parse(sml, mathjax_service_host: "https://localhost:4010")
   end
 

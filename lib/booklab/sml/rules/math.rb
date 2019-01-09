@@ -13,7 +13,7 @@ module BookLab::SML::Rules
       svg_code = URI::encode(attrs[:code])
       src = "#{renderer.config.mathjax_service_host}/svg?tex=#{svg_code}"
 
-      %(<img className="tex-image" src="#{src}">)
+      %(<img class="tex-image" src="#{src}">)
     end
   end
 end
