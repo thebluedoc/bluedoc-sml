@@ -1,4 +1,5 @@
 require 'test_helper'
+require "url"
 
 class BookLab::SML::RulesTest < ActiveSupport::TestCase
   test "root" do
@@ -106,7 +107,25 @@ class BookLab::SML::RulesTest < ActiveSupport::TestCase
     assert_html_equal html, BookLab::SML.parse(sml, mathjax_service_host: "https://localhost:4010")
   end
 
-  test "list" do
+  test "plantuml" do
+    code = <<~CODE
+    @startuml
+    Alice -> Bob: test
+    @enduml
+    CODE
 
+    sml = %(["plantuml", { code: "#{code}" }])
+    svg_code = URL::encode(code)
+    html = %(<img src="https://localhost:1020/svg/#{svg_code}" class="plantuml-image" />)
+    out = BookLab::SML.parse(sml, plantuml_service_host: "https://localhost:1020")
+    assert_equal html, out
+  end
+
+  test "list" do
+    sml = %(["list",{"nid":"c50z4utzc9q","level":1,"pstyle":"paragraph","indent":{"firstline":0,"left":4},"type":"bulleted"},["span",{"t":1},["span",{"t":0},"First line"]]],["list",{"nid":"c50z4utzc9q","level":2,"pstyle":"paragraph","indent":{"firstline":0,"left":8},"type":"bulleted"},["span",{"t":1},["span",{"t":0},"Second line with indent 1"]]],["list",{"nid":"c50z4utzc9q","level":3,"pstyle":"paragraph","indent":{"firstline":0,"left":12},"type":"bulleted"},["span",{"t":1},["span",{"t":0},"Third line with 2 ident"]]],["list",{"nid":"c50z4utzc9q","level":2,"pstyle":"paragraph","indent":{"firstline":0,"left":8},"type":"bulleted"},["span",{"t":1},["span",{"t":0},"4th line"]]],["list",{"nid":"c50z4utzc9q","level":1,"pstyle":"paragraph","indent":{"firstline":0,"left":4},"type":"bulleted"},["span",{"t":1},["span",{"t":0},"5thline"]]],["p",{},["span",{"t":1},["span",{"t":0},""]]])
+    html = %()
+    out = BookLab::SML.parse(sml)
+    puts out
+    assert_equal html, out
   end
 end

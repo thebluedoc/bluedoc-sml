@@ -6,11 +6,10 @@ module BookLab::SML::Rules
 
     def self.to_html(node, opts = {})
       attrs = attributes(node)
-
-      config = opts[:config]
+      renderer = opts[:renderer]
 
       svg_code = URI::encode(attrs[:code])
-      %(<img src="#{config.plantuml_service_host}/svg/#{svg_code}" class="plantuml-image" />)
+      %(<img src="#{renderer.config.plantuml_service_host}/svg/#{svg_code}" class="plantuml-image" />)
     end
   end
 end
