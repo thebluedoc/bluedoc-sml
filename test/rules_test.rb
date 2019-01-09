@@ -37,4 +37,10 @@ class BookLab::SML::RulesTest < ActiveSupport::TestCase
     sml = %(["image", { name: "Foo.jpg", height: 300 }])
     assert_equal "Foo.jpg", BookLab::SML.parse(sml)
   end
+
+  test "blockquote" do
+    sml = %(["blockquote", ["p", "Hello world"]])
+    html = %(<blockquote><p>Hello world</p></blockquote>)
+    assert_equal html, BookLab::SML.parse(sml)
+  end
 end
