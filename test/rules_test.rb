@@ -43,4 +43,31 @@ class BookLab::SML::RulesTest < ActiveSupport::TestCase
     html = %(<blockquote><p>Hello world</p></blockquote>)
     assert_equal html, BookLab::SML.parse(sml)
   end
+
+  test "br" do
+    sml = %(["br"])
+    html = %(<br>)
+    assert_equal html, BookLab::SML.parse(sml)
+  end
+
+  test "codeblock" do
+    code = <<~CODE
+    class BookLab
+      def version
+        '0.1.0'
+      end
+    end
+    CODE
+
+    sml = %(["codeblock", { code: "#{code}", language: "ruby" }])
+
+    html = <<~HTML
+    <div class="highlight">
+      <pre class="highlight ruby">
+        <code><span class="k">class</span> <span class="nc">BookLab</span> <span class="k">def</span> <span class="nf">version</span> <span class="s1">'0.1.0'</span> <span class="k">end</span> <span class="k">end</span> </code>
+      </pre>
+    </div>
+    HTML
+    assert_html_equal html, BookLab::SML.parse(sml)
+  end
 end
