@@ -3,7 +3,7 @@ require 'test_helper'
 class BookLab::SML::Test < ActiveSupport::TestCase
   test "base to_html" do
     ml = %(["html", { lang: "en" }, ["body", ["p", "Hello world"]]])
-    html = %(<html lang="en"><body><p>Hello world</p></body></html>)
+    html = %(<html><body><p>Hello world</p></body></html>)
     assert_equal html, BookLab::SML.parse(ml)
   end
 
