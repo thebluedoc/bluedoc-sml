@@ -17,7 +17,7 @@ class BookLab::SML::RulesTest < ActiveSupport::TestCase
 
   test "link" do
     sml = %(["link", { href: "https://booklab.io", title: "BookLab" }, "Hello world"])
-    html = %(<a href="https://booklab.io" title="BookLab">Hello world</a>)
+    html = %(<a href="https://booklab.io" title="BookLab" target="_blank">Hello world</a>)
     assert_equal html, BookLab::SML.parse(sml)
 
     sml = %(["link", { title: "BookLab" }, "Hello world"])

@@ -12,7 +12,7 @@ module BookLab::SML::Rules
       name = renderer.children_to_html(node)
       return name if attrs[:href].blank?
 
-      %(<a href="#{attrs[:href]}" title="#{attrs[:title]}">#{name}</a>)
+      %(<a href="#{attrs[:href]}" title="#{attrs[:title]}" target="_blank">#{name}</a>)
     end
   end
 end
