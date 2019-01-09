@@ -3,6 +3,7 @@ PATH
   specs:
     booklab-sml (0.1.0)
       activesupport
+      escape_utils
       rouge
 
 GEM
@@ -14,6 +15,7 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     concurrent-ruby (1.1.4)
+    escape_utils (1.2.1)
     i18n (1.5.1)
       concurrent-ruby (~> 1.0)
     minitest (5.11.3)

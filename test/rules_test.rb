@@ -1,6 +1,12 @@
 require 'test_helper'
 
 class BookLab::SML::RulesTest < ActiveSupport::TestCase
+  test "root" do
+    sml = %(["root", ["body", ["p", "Hello world"]]])
+    html = %(<body><p>Hello world</p></body>)
+    assert_equal html, BookLab::SML.parse(sml)
+  end
+
   test "div, html, body" do
     sml = %(["html", { lang: "en" }, ["body", ["p", "Hello world"]]])
     html = %(<html><body><p>Hello world</p></body></html>)
@@ -36,6 +42,29 @@ class BookLab::SML::RulesTest < ActiveSupport::TestCase
 
     sml = %(["image", { name: "Foo.jpg", height: 300 }])
     assert_equal "Foo.jpg", BookLab::SML.parse(sml)
+  end
+
+  test "file" do
+    sml = %(["file", { name: "Foo-bar.pdf", src: "/uploads/foo.pdf", size: 612821 }])
+    html = <<~HTML
+    <a class="attachment-file" title="Foo-bar.pdf" target="_blank" href="/uploads/foo.pdf">
+      <span class="icon-box"><i class="fas fa-file"></i></span>
+      <span class="filename">Foo-bar.pdf</span>
+      <span class="filesize">598 KB</span>
+    </a>
+    HTML
+    assert_equal html, BookLab::SML.parse(sml)
+
+    # escape html
+    sml = %(["file", { name: "<script>-bar.pdf", src: "/uploads/foo.pdf", size: "<script>" }])
+    html = <<~HTML
+    <a class="attachment-file" title="<script>-bar.pdf" target="_blank" href="/uploads/foo.pdf">
+      <span class="icon-box"><i class="fas fa-file"></i></span>
+      <span class="filename">&lt;script&gt;-bar.pdf</span>
+      <span class="filesize">&lt;script&gt;</span>
+    </a>
+    HTML
+    assert_equal html, BookLab::SML.parse(sml)
   end
 
   test "blockquote" do

@@ -1,8 +1,14 @@
+require "escape_utils"
+
 module BookLab::SML::Rules
   class SyntaxError < Exception; end
 
   class Base
     include BookLab::SML::Utils
+
+    class << self
+      include EscapeUtils
+    end
 
     TAG_TYPE_MAP = {
       table: "table",
