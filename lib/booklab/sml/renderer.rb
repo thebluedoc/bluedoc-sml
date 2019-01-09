@@ -10,6 +10,7 @@ module BookLab::SML
       @sml = sml
       @config = Config.new
       @config.plantuml_service_host = options[:plantuml_service_host]
+      @config.mathjax_service_host = options[:mathjax_service_host]
     end
 
     def to_html
