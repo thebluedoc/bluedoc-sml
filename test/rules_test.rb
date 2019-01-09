@@ -15,6 +15,26 @@ class BookLab::SML::RulesTest < ActiveSupport::TestCase
     assert_equal html, BookLab::SML.parse(sml)
   end
 
+  test "heading" do
+    sml = %(["h1", {}, "Heading 1"])
+    assert_equal %(<h1 id="heading-1"><a href="#heading-1" class="heading-anchor">#</a>Heading 1</h1>), BookLab::SML.parse(sml)
+
+    sml = %(["h2", {}, "确保 id 生成是固定的编号"])
+    assert_equal %(<h2 id="583a03ad8"><a href="#583a03ad8" class="heading-anchor">#</a>确保 id 生成是固定的编号</h2>), BookLab::SML.parse(sml)
+
+    sml = %(["h3", {}, "This_? is"])
+    assert_equal %(<h3 id="this-is"><a href="#this-is" class="heading-anchor">#</a>This_? is</h3>), BookLab::SML.parse(sml)
+
+    sml = %(["h4", {}, "Heading 4"])
+    assert_equal %(<h4 id="heading-4"><a href="#heading-4" class="heading-anchor">#</a>Heading 4</h4>), BookLab::SML.parse(sml)
+
+    sml = %(["h5", {}, "Heading 5"])
+    assert_equal %(<h5 id="heading-5"><a href="#heading-5" class="heading-anchor">#</a>Heading 5</h5>), BookLab::SML.parse(sml)
+
+    sml = %(["h6", {}, "Heading 6"])
+    assert_equal %(<h6 id="heading-6"><a href="#heading-6" class="heading-anchor">#</a>Heading 6</h6>), BookLab::SML.parse(sml)
+  end
+
   test "link" do
     sml = %(["link", { href: "https://booklab.io", title: "BookLab" }, "Hello world"])
     html = %(<a href="https://booklab.io" title="BookLab" target="_blank">Hello world</a>)
