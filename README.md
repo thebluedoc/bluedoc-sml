@@ -1,5 +1,7 @@
 # BookLab::SML
 
+[![CircleCI](https://circleci.com/gh/huacnlee/booklab-sml/tree/master.svg?style=shield&circle-token=231806e2ce24e58a85190a0cd167b7d2da27c0b9)](https://circleci.com/gh/huacnlee/booklab-sml/tree/master)
+
 SML __(Slate markup language)__ is a rich text format for describe of the BookLab rich contents.
 
 It base on [JsonML](http://jsonml.org) format, and including custom DSL.
