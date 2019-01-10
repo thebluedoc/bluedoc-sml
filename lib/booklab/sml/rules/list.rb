@@ -23,36 +23,62 @@ module BookLab::SML::Rules
       nid       = attrs[:nid]
       list_type = attrs[:type] || "bulleted"
       level     = attrs[:level] || 1
-      num       = attrs[:num] || 1
-      pstyle    = attrs[:pstyle] || "paragraph"
+      num       = (attrs[:num] || 0) + 1
 
-      wrap_tag = attrs[:type] == "bulleted" ? "ul" : "ol"
-      item_tag = "li"
-
-      case pstyle
-      when "paragraph" then item_tag = "p"
-      when "heading1" then item_tag = "h1"
-      when "heading2" then item_tag = "h2"
-      else item_tag = "p"
-      end
-
-      style = {
-        "text-align": text_align,
-        "text-indent": text_indent ? "#{4 * INDENT_PX}px" : "0px",
+      style_attrs = style_for_attrs(attrs, {
         "padding-left": "#{indent_left * INDENT_PX}px"
-      }.map { |k, v| "#{k}: #{v};" }.join(" ")
+      })
+
+      wrap_tag = list_type == "bulleted" ? "ul" : "ol"
+
+
+      # <ul>
+      #   <li>Bold text</li>
+      #   <li>Important text
+      #     <ul>
+      #       <li>Emphasized text</li>
+      #       <li>
+      #         Small text
+      #         <ul>
+      #           <li>Subscript text</li>
+      #         </ul>
+      #       </li>
+      #     </ul>
+      #   </li>
+      # </ul>
+
+      # get prev attrs
+      prev_name = tag_name(opts[:prev])
+      next_name = tag_name(opts[:next])
+      prev_level = attributes(opts[:prev])[:level]
+      next_level = attributes(opts[:next])[:level]
 
       outs = []
-      if opts[:prev] && tag_name(opts[:prev]) != "list"
-        outs << %(<#{wrap_tag} style="#{style}">)
+
+
+      if prev_name != "list" || prev_level != level
+        outs << %(<#{wrap_tag} data-level="#{level}">)
       end
 
-      outs << %(<li>#{children}</li>)
+      li_item = "<li>#{children}"
 
-      if opts[:next] && tag_name(opts[:next]) != "list"
-        outs << "</#{wrap_tag}>"
+      if next_name == "list"
+        if next_level < level
+          (level - next_level + 1).times do
+            li_item += "</li></#{wrap_tag}>"
+          end
+        elsif next_level == level
+          li_item += "</li>"
+        else
+          li_item += "\n"
+        end
+      else
+        li_item += "</li></#{wrap_tag}>"
       end
-      outs.join("")
+
+      outs << li_item
+
+      outs.join("\n")
     end
   end
 end

@@ -10,12 +10,14 @@ module BookLab::SML
       end
 
       def tag_name(node)
+        return nil if node.blank?
         node[0] || ""
       end
 
       def attributes(node, add_if_mission:  false)
+        return {} if node.blank?
         return node[1].deep_symbolize_keys if has_attributes?(node)
-        return nil unless add_if_mission
+        return {} unless add_if_mission
 
         name = node.shift || ""
         attrs = {}

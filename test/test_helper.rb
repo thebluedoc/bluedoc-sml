@@ -2,6 +2,7 @@
 
 require "minitest/autorun"
 require "active_support"
+require "htmlbeautifier"
 require "booklab-sml"
 
 # Filter out Minitest backtrace while allowing backtrace from other libraries
@@ -14,6 +15,10 @@ class ActiveSupport::TestCase
   end
 
   def assert_html_equal(excepted, html)
-    assert_equal excepted.strip.gsub(/>[\s]+</, "><"), html.strip.gsub(/>[\s]+</, "><")
+    assert_equal beautify_html(excepted), beautify_html(html)
+  end
+
+  def beautify_html(html)
+    HtmlBeautifier.beautify(html, indent: "  ")
   end
 end

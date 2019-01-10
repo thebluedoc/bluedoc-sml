@@ -12,15 +12,7 @@ module BookLab::SML::Rules
       children = renderer.children_to_html(node)
 
       style = {}
-      if attrs[:align]
-        style["text-align"] = attrs[:align]
-      end
-
-      style_attrs = ""
-      if style.any?
-        style_attrs = %( style="#{styleize(style)}")
-      end
-
+      style_attrs = style_for_attrs(attrs, style)
       %(<td#{style_attrs}>#{children}</td>)
     end
   end

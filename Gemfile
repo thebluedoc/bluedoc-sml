@@ -11,3 +11,4 @@ gemspec
 gem "rake"
 gem "minitest"
 gem "rubocop"
+gem "htmlbeautifier"

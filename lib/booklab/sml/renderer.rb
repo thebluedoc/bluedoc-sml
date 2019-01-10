@@ -8,6 +8,9 @@ module BookLab::SML
 
     attr_accessor :sml, :config
 
+    # For table, list for temp mark in block
+    attr_accessor :in_block
+
     def initialize(sml, options)
       @sml = sml
       @config = Config.new
@@ -34,7 +37,7 @@ module BookLab::SML
         prev_node = idx > 0 ? children[idx - 1] : nil
         next_node = idx < children.length ? children[idx + 1] : nil
 
-        node_to_html(child)
+        node_to_html(child, { prev: prev_node, next: next_node })
       end.join("")
     end
   end

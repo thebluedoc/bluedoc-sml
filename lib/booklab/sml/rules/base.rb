@@ -8,6 +8,8 @@ module BookLab::SML::Rules
   class Base
     include BookLab::SML::Utils
 
+    INDENT_PX = 8
+
     class << self
       include EscapeUtils
     end
@@ -24,6 +26,18 @@ module BookLab::SML::Rules
     end
 
     protected
+      def self.style_for_attrs(attrs, style = {})
+        attrs ||= {}
+        if attrs[:align]
+          style["text-align"] = attrs[:align]
+        end
+        if attrs[:indent]
+          style["text-indent"] = "#{4 * INDENT_PX}px"
+        end
+        props = styleize(style)
+        return "" if props.strip.blank?
+        %( style="#{props}")
+      end
 
       def self.styleize(style)
         style.map { |k, v| "#{k}: #{v};" }.join(" ")

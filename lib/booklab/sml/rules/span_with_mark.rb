@@ -5,11 +5,10 @@ module BookLab::SML::Rules
     MARKS = {
       cd: ["<code>", "</code>"],
       b: ["<strong>", "</strong>"],
-      i: ["<em>", "</em>"],
+      i: ["<i>", "</i>"],
       s: ["<del>", "</del>"],
       u: ["<u>", "</u>"],
-      mt: ["$", "$"],
-      m: ["==", "=="],
+      m: ["<mark>", "</mark>"],
       sup: ["<sup>", "</sup>"],
       sub: ["<sub>", "</sub>"],
     }
