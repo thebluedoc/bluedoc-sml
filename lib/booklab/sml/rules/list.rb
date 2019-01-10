@@ -25,9 +25,9 @@ module BookLab::SML::Rules
       level     = attrs[:level] || 1
       num       = (attrs[:num] || 0) + 1
 
-      style_attrs = style_for_attrs(attrs, {
+      style_attrs = style_for_attrs(attrs,
         "padding-left": "#{indent_left * INDENT_PX}px"
-      })
+      )
 
       wrap_tag = list_type == "bulleted" ? "ul" : "ol"
 
