@@ -182,6 +182,16 @@ class BookLab::SML::RulesTest < ActiveSupport::TestCase
     assert_equal html, out
   end
 
+  test "video" do
+    sml = %(["video", { src: "/uploads/foo.mov", type: "video/mov", width: 300, height: 200 }])
+    html = <<~HTML
+    <video controls preload="no" width="300" height="200">
+      <source src="/uploads/foo.mov" type="video/mov">
+    </video>
+    HTML
+    assert_html_equal html, render(sml)
+  end
+
   test "list" do
     sml = <<~SML
     ["root",{},

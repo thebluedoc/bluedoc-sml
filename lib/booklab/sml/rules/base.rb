@@ -34,13 +34,18 @@ module BookLab::SML::Rules
         if attrs[:indent]
           style["text-indent"] = "#{4 * INDENT_PX}px"
         end
-        props = styleize(style)
+        props = css_attrs(style)
         return "" if props.strip.blank?
         %( style="#{props}")
       end
 
-      def self.styleize(style)
+      def self.css_attrs(style)
         style.map { |k, v| "#{k}: #{v};" }.join(" ")
+      end
+
+      def self.html_attrs(attrs)
+        props = attrs.map { |k, v| v.present? ? %(#{k}="#{v}") : nil }.compact.join(" ")
+        %( #{props})
       end
   end
 end
