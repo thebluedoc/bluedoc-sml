@@ -20,7 +20,7 @@ class BookLab::SML::RulesTest < ActiveSupport::TestCase
   end
 
   test "paragraph" do
-    sml = %(["p", { align: "center", indent: 1, color }, "Hello world"])
+    sml = %(["p", { align: "center", indent: 1 }, "Hello world"])
     html = %(<p style="text-align: center; text-indent: 32px;">Hello world</p>)
     assert_equal html, render(sml)
   end
