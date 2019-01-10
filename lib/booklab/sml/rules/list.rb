@@ -73,7 +73,9 @@ module BookLab::SML::Rules
           li_item += "\n"
         end
       else
-        li_item += "</li></#{wrap_tag}>"
+        (level - 1 + 1).times do
+          li_item += "</li></#{wrap_tag}>"
+        end
       end
 
       outs << li_item

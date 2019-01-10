@@ -15,10 +15,10 @@ class ActiveSupport::TestCase
   end
 
   def assert_html_equal(excepted, html)
-    assert_equal beautify_html(excepted), beautify_html(html)
+    assert_equal format_html(excepted), format_html(html)
   end
 
-  def beautify_html(html)
+  def format_html(html)
     HtmlBeautifier.beautify(html, indent: "  ")
   end
 end

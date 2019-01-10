@@ -237,6 +237,41 @@ class BookLab::SML::RulesTest < ActiveSupport::TestCase
     assert_html_equal html, out
   end
 
+  test "list with other tag or empty after n depth" do
+    sml = <<~SML
+    ["root",
+     ["list",{"nid":"rbsdl4hfcz9","type":"bulleted","pstyle":"paragraph","level":1,"indent":{"firstline":0,"left":4},"num":0},["span",{"t":1},["span",{"t":0},"hello"]]],
+     ["list",{"nid":"rbsdl4hfcz9","type":"bulleted","pstyle":"paragraph","level":2,"indent":{"firstline":0,"left":8},"num":1},["span",{"t":1},["span",{"t":0},"hello"]]],
+     ["list",{"nid":"rbsdl4hfcz9","type":"bulleted","pstyle":"paragraph","level":3,"indent":{"firstline":0,"left":8},"num":1},["span",{"t":1},["span",{"t":0},"hello"]]],
+     ["list",{"nid":"rbsdl4hfcz9","type":"bulleted","pstyle":"paragraph","level":4,"indent":{"firstline":0,"left":8},"num":1},["span",{"t":1},["span",{"t":0},"hello"]]],
+     ["p", {}, "Hello world"]
+    ]
+    SML
+
+    html = <<~HTML
+    <ul data-level="1">
+      <li>hello
+        <ul data-level="2">
+          <li>hello
+            <ul data-level="3">
+              <li>hello
+                <ul data-level="4">
+                  <li>hello</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <p>Hello world</p>
+    HTML
+
+    out = render(sml)
+    # puts format_html(out)
+    assert_html_equal html, out
+  end
+
   test "table" do
     sml = %(["root",{},["table",{"colsWidth":[60,60,60]},["tr",{},["tc",{"colSpan":1,"rowSpan":1},["p",{},["span",{"t":1},["span",{"t":0},"版本"]]]],["tc",{"colSpan":1,"rowSpan":1},["p",{},["span",{"t":1},["span",{"t":0},"功能"]]]],["tc",{"colSpan":1,"rowSpan":1},["p",{},["span",{"t":1},["span",{"t":0},"说明"]]]]],["tr",{},["tc",{"colSpan":1,"rowSpan":1},["p",{"jc":"left"},["span",{"t":1},["span",{"t":0},"v2.1.0"]]]],["tc",{"colSpan":1,"rowSpan":1},["p",{},["span",{"t":1},["span",{"t":0},"Hello world"]]]],["tc",{"colSpan":1,"rowSpan":1},["p",{},["span",{"t":1},["span",{"t":0},"2018.7.2"]]]]],["tr",{},["tc",{"colSpan":1,"rowSpan":1},["p",{},["span",{"t":1},["span",{"t":0},"v2.0.8"]]]],["tc",{"colSpan":1,"rowSpan":1},["p",{},["span",{"t":1},["span",{"t":0},"修复一处 crash"]]]],["tc",{"colSpan":1,"rowSpan":1},["p",{},["span",{"t":1},["span",{"t":0},"2018.5.21"]]]]]],["p",{},["span",{"t":1},["span",{"t":0},""]]]])
     html = %(<table><tr><td><p>版本</p></td><td><p>功能</p></td><td><p>说明</p></td></tr><tr><td><p>v2.1.0</p></td><td><p>Hello world</p></td><td><p>2018.7.2</p></td></tr><tr><td><p>v2.0.8</p></td><td><p>修复一处 crash</p></td><td><p>2018.5.21</p></td></tr></table><p></p>)

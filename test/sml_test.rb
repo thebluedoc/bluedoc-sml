@@ -13,7 +13,7 @@ class BookLab::SML::Test < ActiveSupport::TestCase
     ml = read_file("sample.sml")
     html = BookLab::SML.parse(ml)
 
-    # puts beautify_html(html)
+    # puts format_html(html)
 
     assert_html_equal read_file("sample.html"), html
   end
