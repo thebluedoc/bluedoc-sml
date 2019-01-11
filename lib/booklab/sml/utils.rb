@@ -28,7 +28,7 @@ module BookLab::SML
       end
 
       def has_attributes?(node)
-        raise "Invalid SML format:\n#{node.inspect}" unless element?(node)
+        return false unless element?(node)
         attributes?(node[1])
       end
 
