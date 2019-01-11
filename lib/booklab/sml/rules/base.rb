@@ -31,12 +31,24 @@ module BookLab::SML::Rules
         if attrs[:align]
           style["text-align"] = attrs[:align]
         end
+
         if attrs[:indent]
-          style["text-indent"] = "#{4 * INDENT_PX}px"
+          if attrs[:indent].is_a?(Hash)
+            # text-indent
+            text_indent = attrs.dig(:indent, :firstline)
+            style["text-indent"] = "#{4 * INDENT_PX}px" if text_indent
+
+            # padding-left
+            indent_left = attrs.dig(:indent, :left)
+            style["padding-left"] = "#{indent_left * INDENT_PX}px" if indent_left && indent_left > 0
+          end
         end
+
         props = css_attrs(style)
         return "" if props.strip.blank?
         %( style="#{props}")
+      rescue => e
+        ""
       end
 
       def self.css_attrs(style)

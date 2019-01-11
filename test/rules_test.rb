@@ -21,7 +21,11 @@ class BookLab::SML::RulesTest < ActiveSupport::TestCase
 
   test "paragraph" do
     sml = %(["p", { align: "center", indent: 1 }, "Hello world"])
-    html = %(<p style="text-align: center; text-indent: 32px;">Hello world</p>)
+    html = %(<p style="text-align: center;">Hello world</p>)
+    assert_equal html, render(sml)
+
+    sml = %(["p", { align: "center", indent: { firstline: 1,  left: 2 } }, "Hello world"])
+    html = %(<p style="text-align: center; text-indent: 32px; padding-left: 16px;">Hello world</p>)
     assert_equal html, render(sml)
   end
 
@@ -291,7 +295,7 @@ class BookLab::SML::RulesTest < ActiveSupport::TestCase
   end
 
   test "td" do
-    sml = %(["tc", { align: "right", indent: 1 }, "Hello world"])
+    sml = %(["tc", { align: "right", indent: { firstline: 1 } }, "Hello world"])
     html = %(<td style="text-align: right; text-indent: 32px;">Hello world</td>)
     assert_equal html, render(sml)
   end
