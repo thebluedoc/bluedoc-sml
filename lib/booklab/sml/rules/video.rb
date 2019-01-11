@@ -11,10 +11,10 @@ module BookLab::SML::Rules
 
       return "" if attrs[:src].blank?
 
-      video_attrs = html_attrs({
+      video_attrs = html_attrs(
         width: attrs[:width],
         height: attrs[:height]
-      })
+      )
 
       out = <<~HTML
       <video controls preload="no"#{video_attrs}>
