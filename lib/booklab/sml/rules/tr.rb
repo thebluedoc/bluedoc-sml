@@ -8,7 +8,6 @@ module BookLab::SML::Rules
 
     def self.to_html(node, opts = {})
       renderer = opts[:renderer]
-      attrs = attributes(node)
       children = renderer.children_to_html(node)
 
       %(<tr>#{children}</tr>)
