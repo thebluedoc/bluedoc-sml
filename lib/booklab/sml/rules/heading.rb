@@ -10,7 +10,7 @@ module BookLab::SML::Rules
 
     def self.to_html(node, opts = {})
       renderer = opts[:renderer]
-      title = renderer.children_to_html(node)
+      title = renderer.children_to_html(node) || ""
       heading_tag = tag_name(node)
 
       title_length = title.length

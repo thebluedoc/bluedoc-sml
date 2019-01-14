@@ -10,7 +10,10 @@ module BookLab::SML::Rules
       attrs = attributes(node)
       renderer = opts[:renderer]
 
-      svg_code = URI::encode((attrs[:code] || "").strip)
+      code = (attrs[:code] || "").strip
+      return "" if code.blank?
+
+      svg_code = URI::encode(code)
       %(<img src="#{renderer.config.plantuml_service_host}/svg/#{svg_code}" class="plantuml-image" />)
     end
   end

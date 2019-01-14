@@ -8,6 +8,7 @@ module BookLab::SML::Rules
 
     def self.to_html(node, opts = {})
       attrs = attributes(node)
+      attrs[:name] ||= ""
 
       return attrs[:name] if attrs[:src].blank?
 

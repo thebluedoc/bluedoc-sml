@@ -10,7 +10,10 @@ module BookLab::SML::Rules
       renderer = opts[:renderer]
       attrs = attributes(node)
 
-      svg_code = URI::encode(attrs[:code])
+      code = (attrs[:code] || "").strip
+      return "" if code.blank?
+
+      svg_code = URI::encode(code)
       src = "#{renderer.config.mathjax_service_host}/svg?tex=#{svg_code}"
 
       %(<img class="tex-image" src="#{src}">)

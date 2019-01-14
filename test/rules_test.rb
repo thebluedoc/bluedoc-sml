@@ -80,6 +80,10 @@ class BookLab::SML::RulesTest < ActiveSupport::TestCase
 
     sml = %(["h6", {}, "Heading 6"])
     assert_equal %(<h6 id="heading-6"><a href="#heading-6" class="heading-anchor">#</a>Heading 6</h6>), render(sml)
+
+    # title text is nil
+    sml = %(["h2", {}])
+    assert_equal %(<h2 id=""><a href="#" class="heading-anchor">#</a></h2>), render(sml)
   end
 
   test "link" do
@@ -109,8 +113,13 @@ class BookLab::SML::RulesTest < ActiveSupport::TestCase
     html = %(<img src="/uploads/foo.jpg" height="300">)
     assert_equal html, render(sml)
 
+    # src is nil
     sml = %(["image", { name: "Foo.jpg", height: 300 }])
     assert_equal "Foo.jpg", render(sml)
+
+    # src, name both nil
+    sml = %(["image", { }])
+    assert_equal "", render(sml)
   end
 
   test "file" do
@@ -134,6 +143,14 @@ class BookLab::SML::RulesTest < ActiveSupport::TestCase
     </a>
     HTML
     assert_equal html, render(sml)
+
+    # src is nil, return name
+    sml = %(["file", { name: "Foo bar.pdf" }])
+    assert_equal "Foo bar.pdf", render(sml)
+
+    # src, and name both empty
+    sml = %(["file", {}])
+    assert_equal "", render(sml)
   end
 
   test "blockquote" do
@@ -168,17 +185,24 @@ class BookLab::SML::RulesTest < ActiveSupport::TestCase
 
     # code is nil
     sml = %(["codeblock", { language: "rust" }])
-    html = BookLab::SML.parse(sml)
-    assert_equal %(<div class="highlight"><pre class="highlight rust"><code></code></pre></div>), html
+    assert_equal %(<div class="highlight"><pre class="highlight rust"><code></code></pre></div>), render(sml)
 
     # language is nil
     sml = %(["codeblock", { code: "foo = bar" }])
-    html = BookLab::SML.parse(sml)
-    assert_equal %(<div class="highlight"><pre class="highlight plaintext"><code>foo = bar</code></pre></div>), html
+    assert_equal %(<div class="highlight"><pre class="highlight plaintext"><code>foo = bar</code></pre></div>), render(sml)
   end
 
   test "math" do
     sml = %(["math", { code: "x^2 + y = z" }])
+    html = %(<img class="tex-image" src="https://localhost:4010/svg?tex=x%5E2%20+%20y%20=%20z">)
+    assert_html_equal html, render(sml, mathjax_service_host: "https://localhost:4010")
+
+    # skip nil
+    sml = %(["math", {}])
+    assert_html_equal "", render(sml, mathjax_service_host: "https://localhost:4010")
+
+    # strip
+    sml = %(["math", { code: "  x^2 + y = z  "}])
     html = %(<img class="tex-image" src="https://localhost:4010/svg?tex=x%5E2%20+%20y%20=%20z">)
     assert_html_equal html, render(sml, mathjax_service_host: "https://localhost:4010")
   end
@@ -194,6 +218,12 @@ class BookLab::SML::RulesTest < ActiveSupport::TestCase
     html = %(<img src="https://localhost:1020/svg/@startuml%20Alice%20-%3E%20Bob:%20test%20@enduml" class="plantuml-image" />)
     out = render(sml, plantuml_service_host: "https://localhost:1020")
     assert_equal html, out
+
+    sml = %(["plantuml", {}])
+    assert_equal "", render(sml, plantuml_service_host: "https://localhost:1020")
+
+    sml = %(["plantuml", { code: " Foo "}])
+    assert_equal %(<img src="https://localhost:1020/svg/Foo" class="plantuml-image" />), render(sml, plantuml_service_host: "https://localhost:1020")
   end
 
   test "video" do
@@ -204,6 +234,10 @@ class BookLab::SML::RulesTest < ActiveSupport::TestCase
     </video>
     HTML
     assert_html_equal html, render(sml)
+
+    # src is nil, return empty
+    sml = %(["video", { type: "video/mov", width: 300, height: 200 }])
+    assert_equal "", render(sml)
   end
 
   test "list" do
