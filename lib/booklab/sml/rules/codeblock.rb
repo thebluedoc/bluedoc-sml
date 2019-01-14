@@ -17,7 +17,7 @@ module BookLab::SML::Rules
       attrs = attributes(node)
 
       language = attrs[:language]
-      code = attrs[:code]
+      code = attrs[:code] || ""
 
       block_code(code, language)
     end

@@ -165,6 +165,16 @@ class BookLab::SML::RulesTest < ActiveSupport::TestCase
     </div>
     HTML
     assert_html_equal html, render(sml)
+
+    # code is nil
+    sml = %(["codeblock", { language: "rust" }])
+    html = BookLab::SML.parse(sml)
+    assert_equal %(<div class="highlight"><pre class="highlight rust"><code></code></pre></div>), html
+
+    # language is nil
+    sml = %(["codeblock", { code: "foo = bar" }])
+    html = BookLab::SML.parse(sml)
+    assert_equal %(<div class="highlight"><pre class="highlight plaintext"><code>foo = bar</code></pre></div>), html
   end
 
   test "math" do
