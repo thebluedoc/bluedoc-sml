@@ -11,9 +11,13 @@ module BookLab::SML::Rules
 
       return "" if attrs[:src].blank?
 
+      width = attrs[:width]
+      if width == 0 || width.blank?
+        width = "100%"
+      end
+
       video_attrs = html_attrs(
-        width: attrs[:width],
-        height: attrs[:height]
+        width: width
       )
 
       out = <<~HTML

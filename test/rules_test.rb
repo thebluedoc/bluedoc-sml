@@ -229,11 +229,28 @@ class BookLab::SML::RulesTest < ActiveSupport::TestCase
   test "video" do
     sml = %(["video", { src: "/uploads/foo.mov", type: "video/mov", width: 300, height: 200 }])
     html = <<~HTML
-    <video controls preload="no" width="300" height="200">
+    <video controls preload="no" width="300">
       <source src="/uploads/foo.mov" type="video/mov">
     </video>
     HTML
     assert_html_equal html, render(sml)
+
+    # auto fix widith
+    sml = %(["video", { src: "/uploads/foo.mov", type: "video/mov", width: 0 }])
+    html = <<~HTML
+    <video controls preload="no" width="100%">
+      <source src="/uploads/foo.mov" type="video/mov">
+    </video>
+    HTML
+    assert_equal html, render(sml)
+
+    sml = %(["video", { src: "/uploads/foo.mov" }])
+    html = <<~HTML
+    <video controls preload="no" width="100%">
+      <source src="/uploads/foo.mov" type="">
+    </video>
+    HTML
+    assert_equal html, render(sml)
 
     # src is nil, return empty
     sml = %(["video", { type: "video/mov", width: 300, height: 200 }])
