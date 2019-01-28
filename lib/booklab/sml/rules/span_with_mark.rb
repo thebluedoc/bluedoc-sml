@@ -23,7 +23,11 @@ module BookLab::SML::Rules
     def self.to_html(node, opts = {})
       attrs = attributes(node)
       renderer = opts[:renderer]
-      children = renderer.children_to_html(node)
+      if attrs[:cd] == 1
+        children = renderer.children_to_text(node)
+      else
+        children = renderer.children_to_html(node)
+      end
 
       case attrs[:va]
       when "superscript" then attrs[:sup] = 1

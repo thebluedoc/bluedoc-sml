@@ -4,7 +4,7 @@ require "test_helper"
 
 class BookLab::SML::RulesTest < ActiveSupport::TestCase
   def render(sml, opts = {})
-    BookLab::SML.parse(sml, opts)
+    BookLab::SML.parse(sml, opts).to_html
   end
 
   test "root" do
@@ -35,6 +35,8 @@ class BookLab::SML::RulesTest < ActiveSupport::TestCase
 
     # code
     sml = %(["span", { t: 0, cd: 1 }, "code"])
+    assert_equal %(<code>code</code>), render(sml)
+    sml = %(["span", { t: 0, cd: 1 }, ["p", "code"]])
     assert_equal %(<code>code</code>), render(sml)
 
     # bold
