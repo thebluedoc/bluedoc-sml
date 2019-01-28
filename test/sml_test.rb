@@ -9,13 +9,20 @@ class BookLab::SML::Test < ActiveSupport::TestCase
     assert_equal html, BookLab::SML.parse(sml)
   end
 
+  test "base to_text" do
+    sml = %(["html", { lang: "en" }, ["body", ["p", "Hello world"], ["p", "   "], ["p", " This is plain text "]]])
+    html = %(Hello world This is plain text)
+    assert_equal html, BookLab::SML.parse(sml).to_text
+  end
+
   test "complex" do
     sml = read_file("sample.sml")
-    html = BookLab::SML.parse(sml)
+    renderer = BookLab::SML.parse(sml)
 
-    # puts format_html(html)
+    # puts format_html(renderer.to_html)
 
-    assert_html_equal read_file("sample.html"), html
+    assert_html_equal read_file("sample.html"), renderer.to_html
+    assert_html_equal read_file("sample.txt"), renderer.to_text
   end
 
   test "with invalid format" do

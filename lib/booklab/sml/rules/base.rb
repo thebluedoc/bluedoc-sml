@@ -25,6 +25,10 @@ module BookLab::SML::Rules
       %(<#{tag}>#{children}</#{tag}>)
     end
 
+    def self.to_text(node, opts = {})
+      opts[:renderer].children_to_text(node)
+    end
+
     protected
       def self.style_for_attrs(attrs, style = {})
         attrs ||= {}

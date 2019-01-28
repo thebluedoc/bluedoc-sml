@@ -16,8 +16,11 @@ and then run `bundle install`
 
 ```rb
 $ sml = %(["p", { align: "center", indent: 1 }, "Hello world"])
-$ BookLab::SML.parse(sml)
+$ renderer = BookLab::SML.parse(sml)
+$ renderer.to_html
 => <p style="text-align: center; text-indent: 32px;">Hello world</p>
+$ renderer.to_text
+=> "Hello world"
 ```
 
 ## License
