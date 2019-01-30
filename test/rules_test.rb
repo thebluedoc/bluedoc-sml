@@ -226,6 +226,9 @@ class BookLab::SML::RulesTest < ActiveSupport::TestCase
 
     sml = %(["plantuml", { code: " Foo "}])
     assert_equal %(<img src="https://localhost:1020/svg/Foo" class="plantuml-image" />), render(sml, plantuml_service_host: "https://localhost:1020")
+
+    sml = %(["plantuml", { code: " Foo ", src: "https://localhost/plantuml/foo.svg" }])
+    assert_equal %(<img src="https://localhost/plantuml/foo.svg" class="plantuml-image" />), render(sml)
   end
 
   test "video" do

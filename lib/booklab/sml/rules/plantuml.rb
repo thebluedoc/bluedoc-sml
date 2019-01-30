@@ -13,8 +13,13 @@ module BookLab::SML::Rules
       code = (attrs[:code] || "").strip
       return "" if code.blank?
 
-      svg_code = URI::encode(code)
-      %(<img src="#{renderer.config.plantuml_service_host}/svg/#{svg_code}" class="plantuml-image" />)
+      src = attrs[:src]
+      if src
+        %(<img src="#{src}" class="plantuml-image" />)
+      else
+        svg_code = URI::encode(code)
+        %(<img src="#{renderer.config.plantuml_service_host}/svg/#{svg_code}" class="plantuml-image" />)
+      end
     end
   end
 end
