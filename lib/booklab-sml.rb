@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "active_support/concern"
+require "booklab/plantuml"
 require "booklab/sml/version"
 require "booklab/sml/utils"
 require "booklab/sml/rules"

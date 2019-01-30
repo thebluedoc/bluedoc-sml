@@ -217,7 +217,7 @@ class BookLab::SML::RulesTest < ActiveSupport::TestCase
     CODE
 
     sml = %(["plantuml", { code: "#{code}" }])
-    html = %(<img src="https://localhost:1020/svg/@startuml%20Alice%20-%3E%20Bob:%20test%20@enduml" class="plantuml-image" />)
+    html = %(<img src="https://localhost:1020/svg/U9npA2v9B2efpSrHSCp9J4vLqBLJSCfFib8eIIqkKN18pKi1IW40vuuCU000" class="plantuml-image" />)
     out = render(sml, plantuml_service_host: "https://localhost:1020")
     assert_equal html, out
 
@@ -225,10 +225,7 @@ class BookLab::SML::RulesTest < ActiveSupport::TestCase
     assert_equal "", render(sml, plantuml_service_host: "https://localhost:1020")
 
     sml = %(["plantuml", { code: " Foo "}])
-    assert_equal %(<img src="https://localhost:1020/svg/Foo" class="plantuml-image" />), render(sml, plantuml_service_host: "https://localhost:1020")
-
-    sml = %(["plantuml", { code: " Foo ", src: "https://localhost/plantuml/foo.svg" }])
-    assert_equal %(<img src="https://localhost/plantuml/foo.svg" class="plantuml-image" />), render(sml)
+    assert_equal %(<img src="https://localhost:1020/svg/U9npoyy7008Y0IK0" class="plantuml-image" />), render(sml, plantuml_service_host: "https://localhost:1020")
   end
 
   test "video" do
