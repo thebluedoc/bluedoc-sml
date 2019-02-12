@@ -115,6 +115,11 @@ class BookLab::SML::RulesTest < ActiveSupport::TestCase
     html = %(<img src="/uploads/foo.jpg" height="300">)
     assert_equal html, render(sml)
 
+    # width, height = 0
+    sml = %(["image", { src: "/uploads/foo.jpg", width: 0, height: 0 }])
+    html = %(<img src="/uploads/foo.jpg">)
+    assert_equal html, render(sml)
+
     # src is nil
     sml = %(["image", { name: "Foo.jpg", height: 300 }])
     assert_equal "Foo.jpg", render(sml)

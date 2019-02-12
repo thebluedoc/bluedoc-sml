@@ -12,15 +12,14 @@ module BookLab::SML::Rules
 
       return attrs[:name] if attrs[:src].blank?
 
-      html_attrs = {
+      attr_html = html_attrs(
         src: attrs[:src],
         alt: attrs[:name],
         width: attrs[:width],
         height: attrs[:height]
-      }
+      )
 
-      attr_html = html_attrs.map { |k, v| v.present? ? %(#{k}="#{v}") : nil }.compact.join(" ")
-      %(<img #{attr_html}>)
+      %(<img#{attr_html}>)
     end
   end
 end

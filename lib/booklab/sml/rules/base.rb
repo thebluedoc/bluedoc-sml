@@ -60,6 +60,9 @@ module BookLab::SML::Rules
       end
 
       def self.html_attrs(attrs)
+        attrs[:width] = nil if attrs[:width].to_i == 0
+        attrs[:height] = nil if attrs[:height].to_i == 0
+
         props = attrs.map { |k, v| v.present? ? %(#{k}="#{v}") : nil }.compact.join(" ")
         %( #{props})
       end
