@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.version     = BlueDoc::SML::VERSION
   spec.authors     = ["Jason Lee"]
   spec.email       = ["huacnlee@gmail.com"]
-  spec.homepage    = "https://github.com/bluedoc-org/bluedoc-sml"
+  spec.homepage    = "https://bluedoc.org"
   spec.summary     = "SML is a rich text format for describe of the BlueDoc rich contents."
   spec.description = "SML is a rich text format for describe of the BlueDoc rich contents, base on [JsonML](http://jsonml.org)."
   spec.license     = "MIT"
