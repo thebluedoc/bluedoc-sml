@@ -40,7 +40,7 @@ module BookLab::SML::Rules
           if attrs[:indent].is_a?(Hash)
             # text-indent
             text_indent = attrs.dig(:indent, :firstline)
-            style["text-indent"] = "#{4 * INDENT_PX}px" if text_indent
+            style["text-indent"] = "#{4 * INDENT_PX}px" if text_indent && text_indent > 0
 
             # padding-left
             indent_left = attrs.dig(:indent, :left)

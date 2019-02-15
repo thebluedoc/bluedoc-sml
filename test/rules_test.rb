@@ -27,6 +27,10 @@ class BookLab::SML::RulesTest < ActiveSupport::TestCase
     sml = %(["p", { align: "center", indent: { firstline: 1,  left: 2 } }, "Hello world"])
     html = %(<p style="text-align: center; text-indent: 32px; padding-left: 16px;">Hello world</p>)
     assert_equal html, render(sml)
+
+    sml = %(["p", { align: "center", indent: { firstline: 0,  left: 0 } }, "Hello world"])
+    html = %(<p style="text-align: center;">Hello world</p>)
+    assert_equal html, render(sml)
   end
 
   test "span and marks" do
