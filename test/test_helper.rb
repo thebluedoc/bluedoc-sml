@@ -3,7 +3,7 @@
 require "minitest/autorun"
 require "active_support"
 require "htmlbeautifier"
-require "booklab-sml"
+require "bluedoc-sml"
 
 # Filter out Minitest backtrace while allowing backtrace from other libraries
 # to be shown.

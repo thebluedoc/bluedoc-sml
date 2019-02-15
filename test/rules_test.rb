@@ -2,9 +2,9 @@
 
 require "test_helper"
 
-class BookLab::SML::RulesTest < ActiveSupport::TestCase
+class BlueDoc::SML::RulesTest < ActiveSupport::TestCase
   def render(sml, opts = {})
-    BookLab::SML.parse(sml, opts).to_html
+    BlueDoc::SML.parse(sml, opts).to_html
   end
 
   test "root" do
@@ -30,6 +30,16 @@ class BookLab::SML::RulesTest < ActiveSupport::TestCase
 
     sml = %(["p", { align: "center", indent: { firstline: 0,  left: 0 } }, "Hello world"])
     html = %(<p style="text-align: center;">Hello world</p>)
+    assert_equal html, render(sml)
+
+    sml = <<~SML
+    ["root",{},
+      ["p",{"indent":{"firstline":0,"left":4}},["span",{"t":1},["span",{"t":0},"Paragraph wants indent"]]],
+      ["p",{"indent":{"firstline":0,"left":0}},["span",{"t":1},["span",{"t":0},"No indent"]]],
+    ]
+    SML
+
+    html = %(<p style="padding-left: 32px;">Paragraph wants indent</p><p>No indent</p>)
     assert_equal html, render(sml)
   end
 
@@ -93,11 +103,11 @@ class BookLab::SML::RulesTest < ActiveSupport::TestCase
   end
 
   test "link" do
-    sml = %(["link", { href: "https://booklab.io", title: "BookLab" }, "Hello world"])
-    html = %(<a href="https://booklab.io" title="BookLab" target="_blank">Hello world</a>)
+    sml = %(["link", { href: "https://bluedoc.io", title: "BlueDoc" }, "Hello world"])
+    html = %(<a href="https://bluedoc.io" title="BlueDoc" target="_blank">Hello world</a>)
     assert_equal html, render(sml)
 
-    sml = %(["link", { title: "BookLab" }, "Hello world"])
+    sml = %(["link", { title: "BlueDoc" }, "Hello world"])
     assert_equal "Hello world", render(sml)
   end
 
@@ -178,7 +188,7 @@ class BookLab::SML::RulesTest < ActiveSupport::TestCase
 
   test "codeblock" do
     code = <<~CODE
-    class BookLab
+    class BlueDoc
       def version
         '0.1.0'
       end
@@ -189,7 +199,7 @@ class BookLab::SML::RulesTest < ActiveSupport::TestCase
 
     html = <<~HTML
     <div class="highlight">
-      <pre class="highlight ruby"><code><span class="k">class</span> <span class="nc">BookLab</span> <span class="k">def</span> <span class="nf">version</span> <span class="s1">'0.1.0'</span> <span class="k">end</span> <span class="k">end</span> </code></pre>
+      <pre class="highlight ruby"><code><span class="k">class</span> <span class="nc">BlueDoc</span> <span class="k">def</span> <span class="nf">version</span> <span class="s1">'0.1.0'</span> <span class="k">end</span> <span class="k">end</span> </code></pre>
     </div>
     HTML
     assert_html_equal html, render(sml)
