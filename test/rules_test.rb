@@ -381,4 +381,14 @@ class BlueDoc::SML::RulesTest < ActiveSupport::TestCase
     html = %(<td style="text-align: right; text-indent: 32px;">Hello world</td>)
     assert_equal html, render(sml)
   end
+
+  test "mention" do
+    sml = %(["mention", { username: "huacnlee", name: "Jason Lee" }, "@Jason Lee"])
+    html = %(<a class="user-mention" href="/huacnlee" title="Jason Lee (huacnlee)">@<span class="mention-name">Jason Lee</span></a>)
+    assert_equal html, render(sml)
+
+    sml = %(["mention", { name: "Jason Lee" }, "@Jason Lee"])
+    html = %(@Jason Lee)
+    assert_equal html, render(sml)
+  end
 end
