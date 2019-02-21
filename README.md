@@ -1,6 +1,6 @@
 # BlueDoc::SML
 
-[![CircleCI](https://circleci.com/gh/bluedoc-org/bluedoc-sml/tree/master.svg?style=shield&circle-token=231806e2ce24e58a85190a0cd167b7d2da27c0b9)](https://circleci.com/gh/bluedoc-org/bluedoc-sml/tree/master)
+[![CircleCI](https://circleci.com/gh/thebluedoc/bluedoc-sml/tree/master.svg?style=shield&circle-token=f1967fcb6f13fb9bcdb074769fc30038d36aee53)](https://circleci.com/gh/thebluedoc/bluedoc-sml/tree/master)
 
 SML __(Slate markup language)__ is a rich text format for describe of the BlueDoc rich contents.
 
