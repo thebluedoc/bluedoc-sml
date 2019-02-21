@@ -10,7 +10,7 @@ module BlueDoc::SML::Rules
 
     def self.to_html(node, opts = {})
       renderer = opts[:renderer]
-      title = renderer.children_to_html(node) || ""
+      title = (renderer.children_to_html(node) || "").strip
       heading_tag = tag_name(node)
 
       title_length = title.length
@@ -21,7 +21,11 @@ module BlueDoc::SML::Rules
         header_id = Digest::MD5.hexdigest(title.strip)[0..8]
       end
 
-      %(<#{heading_tag} id="#{header_id}"><a href="##{header_id}" class="heading-anchor">#</a>#{title}</#{heading_tag}>)
+      if title.blank?
+        %(<#{heading_tag}>#{title}</#{heading_tag}>)
+      else
+        %(<#{heading_tag} id="#{header_id}"><a href="##{header_id}" class="heading-anchor">#</a>#{title}</#{heading_tag}>)
+      end
     end
   end
 end

@@ -97,9 +97,17 @@ class BlueDoc::SML::RulesTest < ActiveSupport::TestCase
     sml = %(["h6", {}, "Heading 6"])
     assert_equal %(<h6 id="heading-6"><a href="#heading-6" class="heading-anchor">#</a>Heading 6</h6>), render(sml)
 
+    # Strip blank
+    sml = %(["h6", {}, "   Heading 6   "])
+    assert_equal %(<h6 id="heading-6"><a href="#heading-6" class="heading-anchor">#</a>Heading 6</h6>), render(sml)
+
     # title text is nil
     sml = %(["h2", {}])
-    assert_equal %(<h2 id=""><a href="#" class="heading-anchor">#</a></h2>), render(sml)
+    assert_equal %(<h2></h2>), render(sml)
+
+    # title text is blank spaces
+    sml = %(["h3", {}, "   "])
+    assert_equal %(<h3></h3>), render(sml)
   end
 
   test "link" do
