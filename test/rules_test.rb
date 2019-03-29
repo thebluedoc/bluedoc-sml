@@ -317,21 +317,15 @@ class BlueDoc::SML::RulesTest < ActiveSupport::TestCase
               </li>
             </ul>
           </li>
-        </ul>
-        <ul data-level="2">
           <li>Small text</li>
           <li>Deleted text</li>
         </ul>
       </li>
-    </ul>
-    <ul data-level="1">
       <li>Inserted text
         <ul data-level="2">
           <li>Subscript text</li>
         </ul>
       </li>
-    </ul>
-    <ul data-level="1">
       <li>Superscript text</li>
     </ul>
     <p></p>

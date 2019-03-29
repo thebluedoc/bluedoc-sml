@@ -6,7 +6,7 @@ module BlueDoc::SML
   class Renderer
     include BlueDoc::SML::Utils
 
-    attr_accessor :sml, :value, :config
+    attr_accessor :sml, :value, :config, :list
 
     # For table, list for temp mark in block
     attr_accessor :in_block
@@ -17,6 +17,7 @@ module BlueDoc::SML
       @config.plantuml_service_host = options[:plantuml_service_host]
       @config.mathjax_service_host = options[:mathjax_service_host]
       @value = YAML.load(sml)
+      @list = {}
     end
 
     def to_html
@@ -41,6 +42,27 @@ module BlueDoc::SML
       children.each_with_index.map do |child, idx|
         prev_node = idx > 0 ? children[idx - 1] : nil
         next_node = idx < children.length ? children[idx + 1] : nil
+
+        list = self.list
+        is_list = self.class.tag_name(child) == "list"
+
+        if is_list
+          child_attrs = self.class.attributes(child)
+          nid = child_attrs[:nid]
+
+          if list[nid]
+            list[nid] << child
+          else
+            list[nid] = [child]
+          end
+        end
+
+        if (!is_list && self.class.tag_name(prev_node) == "list") ||
+          (is_list && self.class.tag_name(prev_node) == "list" && self.class.attributes(child)[:nid] != self.class.attributes(prev_node)[:nid])
+          nid = self.class.attributes(prev_node)[:nid]
+          list.delete(nid)
+        end
+
 
         node_to_html(child, prev: prev_node, next: next_node)
       end.join("")

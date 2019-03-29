@@ -14,6 +14,16 @@ module BlueDoc::SML
         node[0] || ""
       end
 
+      def list_tag_by_type(type)
+        if type == "bulleted"
+          return "ul"
+        elsif type == "ordered"
+          return "ol"
+        else
+          return nil
+        end
+      end
+
       def attributes(node, add_if_mission:  false)
         return {} if node.blank?
         return node[1].deep_symbolize_keys if has_attributes?(node)
