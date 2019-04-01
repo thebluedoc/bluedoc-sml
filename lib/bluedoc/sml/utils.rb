@@ -37,6 +37,14 @@ module BlueDoc::SML
         attrs
       end
 
+      def set_attribute(node, key, val)
+        return if node.blank?
+        return unless element?(node)
+        return unless has_attributes?(node)
+
+        node[1][key] = val
+      end
+
       def has_attributes?(node)
         return false unless element?(node)
         attributes?(node[1])

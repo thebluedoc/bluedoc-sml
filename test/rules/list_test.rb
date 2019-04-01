@@ -85,4 +85,28 @@ class BlueDoc::SML::RulesTest < ActiveSupport::TestCase
     assert_html_equal html, out
   end
 
+  test "Invalid nested list will ignore" do
+    sml = <<~SML
+    ["root",{},
+      ["list",{"nid":"jdewv","type":"bulleted","level":1},
+        ["list",{"nid":"jdewv","type":"bulleted","level":2},["span",{},"Child 1"]],
+        ["list",{"nid":"jdewv","type":"bulleted","level":2},["span",{},"Child 2"]],
+        ["list",{"nid":"jdewv","type":"bulleted","level":2},["span",{},"Child 3"]],
+      ],
+      ["list",{"nid":"jdewv","type":"bulleted","level":1},["span",{},"Contact admin to get"]],
+    ]
+    SML
+
+    out = render(sml)
+
+    html = <<~HTML
+    <ul data-level="1">
+      <li></li>
+      <li><span>Contact admin to get</span></li>
+    </ul>
+    HTML
+
+    assert_html_equal html, out
+  end
+
 end

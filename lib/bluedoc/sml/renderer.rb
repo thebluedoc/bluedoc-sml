@@ -39,6 +39,10 @@ module BlueDoc::SML
       return node if node.is_a?(String)
 
       children = self.class.get_children(node)
+
+      parent_is_list = self.class.tag_name(node) == "list"
+      parent_attrs = self.class.attributes(node)
+
       children.each_with_index.map do |child, idx|
         prev_node = idx > 0 ? children[idx - 1] : nil
         next_node = idx < children.length ? children[idx + 1] : nil
@@ -46,9 +50,15 @@ module BlueDoc::SML
         list = self.list
         is_list = self.class.tag_name(child) == "list"
 
+        child_attrs = self.class.attributes(child)
+
         if is_list
-          child_attrs = self.class.attributes(child)
           nid = child_attrs[:nid]
+
+          # BUG: ignore invlid nested list
+          if parent_is_list
+            return ""
+          end
 
           if list[nid]
             list[nid] << child
@@ -57,9 +67,10 @@ module BlueDoc::SML
           end
         end
 
+        pre_node_attrs = self.class.attributes(prev_node)
         if (!is_list && self.class.tag_name(prev_node) == "list") ||
-          (is_list && self.class.tag_name(prev_node) == "list" && self.class.attributes(child)[:nid] != self.class.attributes(prev_node)[:nid])
-          nid = self.class.attributes(prev_node)[:nid]
+          (is_list && self.class.tag_name(prev_node) == "list" && child_attrs[:nid] != pre_node_attrs[:nid])
+          nid = pre_node_attrs[:nid]
           list.delete(nid)
         end
 

@@ -22,6 +22,7 @@ module BlueDoc::SML::Rules
 
       current.length.times do |i|
         current_node = current[i]
+
         prev_node = current[i - 1]
         next_node = current[i + 1]
 
