@@ -41,7 +41,10 @@ module BlueDoc::SML::Rules
         end
       end
 
-      children
+      style_attrs = style_for_attrs(attrs)
+      return children if style_attrs.blank?
+
+      "<span#{style_attrs}>#{children}</span>"
     end
   end
 end

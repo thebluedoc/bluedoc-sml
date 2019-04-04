@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    bluedoc-sml (0.6.3)
+    bluedoc-sml (0.7.0)
       activesupport
       escape_utils
       rouge

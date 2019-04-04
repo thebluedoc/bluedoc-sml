@@ -22,7 +22,9 @@ module BlueDoc::SML::Rules
     def self.to_html(node, opts = {})
       children = opts[:renderer].children_to_html(node)
       tag = tag_name(node)
-      %(<#{tag}>#{children}</#{tag}>)
+      attrs = attributes(node)
+      style_attrs = style_for_attrs(attrs)
+      %(<#{tag}#{style_attrs}>#{children}</#{tag}>)
     end
 
     def self.to_text(node, opts = {})
@@ -46,6 +48,11 @@ module BlueDoc::SML::Rules
             indent_left = attrs.dig(:indent, :left)
             style["padding-left"] = "#{indent_left * INDENT_PX}px" if indent_left && indent_left > 0
           end
+        end
+
+        # color
+        if attrs[:cl]
+          style["color"] = attrs[:cl];
         end
 
         props = css_attrs(style)

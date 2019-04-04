@@ -78,6 +78,18 @@ class BlueDoc::SML::RulesTest < ActiveSupport::TestCase
     assert_equal %(<sup>supscript</sup>), render(sml)
   end
 
+  test "text color" do
+    sml = %(["span", { cl: "#6f42c1", t: 0, b: 1, i: 1, s: 1, cd: 1 }, "text color"])
+    assert_equal %(<span style="color: #6f42c1;"><del><i><strong><code>text color</code></strong></i></del></span>), render(sml)
+
+    sml = %(["p", { cl: "#6f42c1" }, "paragraph color"])
+    assert_equal %(<p style="color: #6f42c1;">paragraph color</p>), render(sml)
+
+    # td
+    sml = %(["td", { cl: "#6f42c1" }, "td color"])
+    assert_equal %(<td style="color: #6f42c1;">td color</td>), render(sml)
+  end
+
   test "heading" do
     sml = %(["h1", {}, "Heading 1"])
     assert_equal %(<h1 id="heading-1"><a href="#heading-1" class="heading-anchor">#</a>Heading 1</h1>), render(sml)

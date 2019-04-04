@@ -68,13 +68,13 @@ class BlueDoc::SML::RulesTest < ActiveSupport::TestCase
             <ul data-level="3">
               <li>The second and third parameters
                 <ol data-level="4">
-                  <li><strong>It is recommended that you use this shorthand property.</strong></li>
+                  <li><span style="color: rgb(46, 47, 62);"><strong>It is recommended that you use this shorthand property.</strong></span></li>
                 </ol>
               </li>
             </ul>
           </li>
-          <li>The short hand sets the other values intelligently.</li>
-          <li>Note that visually the spaces aren't equal</li>
+          <li><span style="color: rgb(46, 47, 62);">The short hand sets the other values intelligently.</span></li>
+          <li><span style="color: rgb(46, 47, 62);">Note that visually the spaces aren't equal</span></li>
         </ul>
       </li>
       <li>The extra space around content isn't factored in.</li>
