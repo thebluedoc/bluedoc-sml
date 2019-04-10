@@ -18,9 +18,11 @@ module BlueDoc::SML::Rules
 
       humanize_size = number_to_human_size(attrs[:size] || 0)
 
+      file_type = (::File.extname(attrs[:name]) || "none").sub(".", "")
+
       out = <<~HTML
       <a class="attachment-file" title="#{attrs[:name]}" target="_blank" href="#{attrs[:src]}">
-        <span class="icon-box"><i class="fas fa-file"></i></span>
+        <span class="icon-box"><i class="fas fa-file fa-#{file_type}-file"></i></span>
         <span class="filename">#{escape_html(attrs[:name])}</span>
         <span class="filesize">#{escape_html(humanize_size)}</span>
       </a>

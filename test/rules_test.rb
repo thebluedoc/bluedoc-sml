@@ -167,7 +167,7 @@ class BlueDoc::SML::RulesTest < ActiveSupport::TestCase
     sml = %(["file", { name: "Foo-bar.pdf", src: "/uploads/foo.pdf", size: 612821 }])
     html = <<~HTML
     <a class="attachment-file" title="Foo-bar.pdf" target="_blank" href="/uploads/foo.pdf">
-      <span class="icon-box"><i class="fas fa-file"></i></span>
+      <span class="icon-box"><i class="fas fa-file fa-pdf-file"></i></span>
       <span class="filename">Foo-bar.pdf</span>
       <span class="filesize">598 KB</span>
     </a>
@@ -175,11 +175,11 @@ class BlueDoc::SML::RulesTest < ActiveSupport::TestCase
     assert_equal html, render(sml)
 
     # escape html
-    sml = %(["file", { name: "<script>-bar.pdf", src: "/uploads/foo.pdf", size: "<script>" }])
+    sml = %(["file", { name: "<script>-bar.zip", src: "/uploads/foo.zip", size: "<script>" }])
     html = <<~HTML
-    <a class="attachment-file" title="<script>-bar.pdf" target="_blank" href="/uploads/foo.pdf">
-      <span class="icon-box"><i class="fas fa-file"></i></span>
-      <span class="filename">&lt;script&gt;-bar.pdf</span>
+    <a class="attachment-file" title="<script>-bar.zip" target="_blank" href="/uploads/foo.zip">
+      <span class="icon-box"><i class="fas fa-file fa-zip-file"></i></span>
+      <span class="filename">&lt;script&gt;-bar.zip</span>
       <span class="filesize">&lt;script&gt;</span>
     </a>
     HTML
