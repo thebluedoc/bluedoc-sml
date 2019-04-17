@@ -7,6 +7,11 @@ class BlueDoc::SML::RulesTest < ActiveSupport::TestCase
     BlueDoc::SML.parse(sml, opts).to_html
   end
 
+  test "Text for html safe" do
+    sml = %(["p", {}, ["span",{"t":0 },"<number> or <integer>"], ["span",{"t":0,"cd":1},"<string> and <boolean>"]])
+    assert_equal "<p>&lt;number&gt; or &lt;integer&gt;<code>&lt;string&gt; and &lt;boolean&gt;</code></p>", render(sml)
+  end
+
   test "root" do
     sml = %(["root", ["body", ["p", "Hello world"]]])
     html = %(<body><p>Hello world</p></body>)

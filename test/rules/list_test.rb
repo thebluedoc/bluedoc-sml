@@ -56,10 +56,10 @@ class BlueDoc::SML::RulesTest < ActiveSupport::TestCase
           <li>It can be a length <strong>(e.g. 20%, 5rem, etc.)</strong> or a keyword.
             <ol data-level="3">
               <li>The auto keyword means look at my width or height property</li>
-              <li>The content <code>keyword</code> means size it based on the item's content - this keyword isn't well supported yet.</li>
+              <li>The content <code>keyword</code> means size it based on the item&#39;s content - this keyword isn&#39;t well supported yet.</li>
             </ol>
           </li>
-          <li>So it's hard to test and harder to know what its brethren.</li>
+          <li>So it&#39;s hard to test and harder to know what its brethren.</li>
         </ol>
       </li>
       <li>Look at my width or height property
@@ -74,10 +74,10 @@ class BlueDoc::SML::RulesTest < ActiveSupport::TestCase
             </ul>
           </li>
           <li><span style="color: rgb(46, 47, 62);">The short hand sets the other values intelligently.</span></li>
-          <li><span style="color: rgb(46, 47, 62);">Note that visually the spaces aren't equal</span></li>
+          <li><span style="color: rgb(46, 47, 62);">Note that visually the spaces aren&#39;t equal</span></li>
         </ul>
       </li>
-      <li>The extra space around content isn't factored in.</li>
+      <li>The extra space around content isn&#39;t factored in.</li>
     </ul>
     <p></p>
     HTML

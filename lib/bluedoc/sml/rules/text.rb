@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require "active_support/core_ext"
 
 module BlueDoc::SML::Rules
   class Text < Base
@@ -7,7 +8,7 @@ module BlueDoc::SML::Rules
     end
 
     def self.to_html(node, opts = {})
-      node
+      ERB::Util.html_escape(node)
     end
   end
 end
