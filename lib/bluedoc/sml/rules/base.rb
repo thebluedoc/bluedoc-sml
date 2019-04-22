@@ -32,6 +32,16 @@ module BlueDoc::SML::Rules
     end
 
     protected
+      def self.name_by_attrs(attrs)
+        attrs ||= {}
+
+        if !attrs[:nid]
+          return ""
+        end
+
+        return %( nid="#{attrs[:nid]}")
+      end
+
       def self.style_for_attrs(attrs, style = {})
         attrs ||= {}
         if attrs[:align]
@@ -66,7 +76,7 @@ module BlueDoc::SML::Rules
         style.map { |k, v| "#{k}: #{v};" }.join(" ")
       end
 
-      def self.html_attrs(attrs)
+      def self.html_attrs(attrs, style_attr = nil)
         attrs[:width] = nil if attrs[:width].to_i == 0
         attrs[:height] = nil if attrs[:height].to_i == 0
 

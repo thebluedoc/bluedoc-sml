@@ -12,7 +12,9 @@ module BlueDoc::SML::Rules
 
       children = renderer.children_to_html(node)
 
-      %(<blockquote>#{children}</blockquote>)
+      nid_attr = name_by_attrs(attrs)
+
+      %(<blockquote#{nid_attr}>#{children}</blockquote>)
     end
   end
 end

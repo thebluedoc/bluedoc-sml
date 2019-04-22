@@ -16,17 +16,21 @@ class BlueDoc::SML::RulesTest < ActiveSupport::TestCase
     sml = %(["root", ["body", ["p", "Hello world"]]])
     html = %(<body><p>Hello world</p></body>)
     assert_equal html, render(sml)
+
+    sml = %(["root", ["body", ["p", { "nid": "8wj2w" }, "Hello world"]]])
+    html = %(<body><p nid=\"8wj2w\">Hello world</p></body>)
+    assert_equal html, render(sml)
   end
 
   test "div, html, body" do
-    sml = %(["html", { lang: "en" }, ["body", ["p", "Hello world"]]])
-    html = %(<html><body><p>Hello world</p></body></html>)
+    sml = %(["html", { lang: "en" }, ["body", ["p", { "nid": "8wj2w" }, "Hello world"]]])
+    html = %(<html><body><p nid="8wj2w">Hello world</p></body></html>)
     assert_equal html, render(sml)
   end
 
   test "paragraph" do
-    sml = %(["p", { align: "center", indent: 1 }, "Hello world"])
-    html = %(<p style="text-align: center;">Hello world</p>)
+    sml = %(["p", { nid: "kwuyd1", align: "center", indent: 1 }, "Hello world"])
+    html = %(<p style="text-align: center;" nid="kwuyd1">Hello world</p>)
     assert_equal html, render(sml)
 
     sml = %(["p", { align: "center", indent: { firstline: 1,  left: 2 } }, "Hello world"])
@@ -49,7 +53,7 @@ class BlueDoc::SML::RulesTest < ActiveSupport::TestCase
   end
 
   test "span and marks" do
-    sml = %(["span", {}, "Foo"])
+    sml = %(["span", { nid: "kwuyd1" }, "Foo"])
     assert_equal %(<span>Foo</span>), render(sml)
 
     # code
@@ -96,23 +100,23 @@ class BlueDoc::SML::RulesTest < ActiveSupport::TestCase
   end
 
   test "heading" do
-    sml = %(["h1", {}, "Heading 1"])
-    assert_equal %(<h1 id="heading-1"><a href="#heading-1" class="heading-anchor">#</a>Heading 1</h1>), render(sml)
+    sml = %(["h1", { nid: "kwuyd1" }, "Heading 1"])
+    assert_equal %(<h1 id="heading-1" nid="kwuyd1"><a href="#heading-1" class="heading-anchor">#</a>Heading 1</h1>), render(sml)
 
-    sml = %(["h2", {}, "确保 id 生成是固定的编号"])
-    assert_equal %(<h2 id="583a03ad8"><a href="#583a03ad8" class="heading-anchor">#</a>确保 id 生成是固定的编号</h2>), render(sml)
+    sml = %(["h2", { nid: "akjw2s" }, "确保 id 生成是固定的编号"])
+    assert_equal %(<h2 id="583a03ad8" nid="akjw2s"><a href="#583a03ad8" class="heading-anchor">#</a>确保 id 生成是固定的编号</h2>), render(sml)
 
-    sml = %(["h3", {}, "This_? is"])
-    assert_equal %(<h3 id="this-is"><a href="#this-is" class="heading-anchor">#</a>This_? is</h3>), render(sml)
+    sml = %(["h3", { nid: "lkj2b3" }, "This_? is"])
+    assert_equal %(<h3 id="this-is" nid="lkj2b3"><a href="#this-is" class="heading-anchor">#</a>This_? is</h3>), render(sml)
 
-    sml = %(["h4", {}, "Heading 4"])
-    assert_equal %(<h4 id="heading-4"><a href="#heading-4" class="heading-anchor">#</a>Heading 4</h4>), render(sml)
+    sml = %(["h4", { nid: "KenquH" }, "Heading 4"])
+    assert_equal %(<h4 id="heading-4" nid="KenquH"><a href="#heading-4" class="heading-anchor">#</a>Heading 4</h4>), render(sml)
 
-    sml = %(["h5", {}, "Heading 5"])
-    assert_equal %(<h5 id="heading-5"><a href="#heading-5" class="heading-anchor">#</a>Heading 5</h5>), render(sml)
+    sml = %(["h5", { nid: "Snkw2" }, "Heading 5"])
+    assert_equal %(<h5 id="heading-5" nid="Snkw2"><a href="#heading-5" class="heading-anchor">#</a>Heading 5</h5>), render(sml)
 
-    sml = %(["h6", {}, "Heading 6"])
-    assert_equal %(<h6 id="heading-6"><a href="#heading-6" class="heading-anchor">#</a>Heading 6</h6>), render(sml)
+    sml = %(["h6", { nid: "92jNw" }, "Heading 6"])
+    assert_equal %(<h6 id="heading-6" nid="92jNw"><a href="#heading-6" class="heading-anchor">#</a>Heading 6</h6>), render(sml)
 
     # Strip blank
     sml = %(["h6", {}, "   Heading 6   "])
@@ -169,9 +173,9 @@ class BlueDoc::SML::RulesTest < ActiveSupport::TestCase
   end
 
   test "file" do
-    sml = %(["file", { name: "Foo-bar.pdf", src: "/uploads/foo.pdf", size: 612821 }])
+    sml = %(["file", { nid: "salkjh", name: "Foo-bar.pdf", src: "/uploads/foo.pdf", size: 612821 }])
     html = <<~HTML
-    <a class="attachment-file" title="Foo-bar.pdf" target="_blank" href="/uploads/foo.pdf">
+    <a class="attachment-file" title="Foo-bar.pdf" target="_blank" href="/uploads/foo.pdf" nid="salkjh">
       <span class="icon-box"><i class="fas fa-file fa-pdf-file"></i></span>
       <span class="filename">Foo-bar.pdf</span>
       <span class="filesize">598 KB</span>
@@ -180,9 +184,9 @@ class BlueDoc::SML::RulesTest < ActiveSupport::TestCase
     assert_equal html, render(sml)
 
     # escape html
-    sml = %(["file", { name: "<script>-bar.zip", src: "/uploads/foo.zip", size: "<script>" }])
+    sml = %(["file", { nid: "salkjh", name: "<script>-bar.zip", src: "/uploads/foo.zip", size: "<script>" }])
     html = <<~HTML
-    <a class="attachment-file" title="<script>-bar.zip" target="_blank" href="/uploads/foo.zip">
+    <a class="attachment-file" title="<script>-bar.zip" target="_blank" href="/uploads/foo.zip" nid="salkjh">
       <span class="icon-box"><i class="fas fa-file fa-zip-file"></i></span>
       <span class="filename">&lt;script&gt;-bar.zip</span>
       <span class="filesize">&lt;script&gt;</span>
@@ -200,8 +204,8 @@ class BlueDoc::SML::RulesTest < ActiveSupport::TestCase
   end
 
   test "blockquote" do
-    sml = %(["blockquote", ["p", "Hello world"]])
-    html = %(<blockquote><p>Hello world</p></blockquote>)
+    sml = %(["blockquote", { "nid": "Nsk235" }, ["p", { nid: "jknqwk" }, "Hello world"]])
+    html = %(<blockquote nid="Nsk235"><p nid="jknqwk">Hello world</p></blockquote>)
     assert_equal html, render(sml)
   end
 
@@ -220,18 +224,18 @@ class BlueDoc::SML::RulesTest < ActiveSupport::TestCase
     end
     CODE
 
-    sml = %(["codeblock", { code: "#{code}", language: "ruby" }])
+    sml = %(["codeblock", { nid: "nmw29", code: "#{code}", language: "ruby" }])
 
     html = <<~HTML
-    <div class="highlight">
+    <div class="highlight" nid="nmw29">
       <pre class="highlight ruby"><code><span class="k">class</span> <span class="nc">BlueDoc</span> <span class="k">def</span> <span class="nf">version</span> <span class="s1">'0.1.0'</span> <span class="k">end</span> <span class="k">end</span> </code></pre>
     </div>
     HTML
     assert_html_equal html, render(sml)
 
     # code is nil
-    sml = %(["codeblock", { language: "rust" }])
-    assert_equal %(<div class="highlight"><pre class="highlight rust"><code></code></pre></div>), render(sml)
+    sml = %(["codeblock", { nid: "nmw29", language: "rust" }])
+    assert_equal %(<div class="highlight" nid="nmw29"><pre class="highlight rust"><code></code></pre></div>), render(sml)
 
     # language is nil
     sml = %(["codeblock", { code: "foo = bar" }])
@@ -260,8 +264,8 @@ class BlueDoc::SML::RulesTest < ActiveSupport::TestCase
     @enduml
     CODE
 
-    sml = %(["plantuml", { code: "#{code}" }])
-    html = %(<img src="https://localhost:1020/svg/U9npA2v9B2efpSrHSCp9J4vLqBLJSCfFib8eIIqkKN18pKi1IW40vuuCU000" class="plantuml-image" />)
+    sml = %(["plantuml", { nid: "mwelk", code: "#{code}" }])
+    html = %(<div nid="mwelk"><img src="https://localhost:1020/svg/U9npA2v9B2efpSrHSCp9J4vLqBLJSCfFib8eIIqkKN18pKi1IW40vuuCU000" class="plantuml-image" /></div>)
     out = render(sml, plantuml_service_host: "https://localhost:1020")
     assert_equal html, out
 
@@ -269,22 +273,22 @@ class BlueDoc::SML::RulesTest < ActiveSupport::TestCase
     assert_equal "", render(sml, plantuml_service_host: "https://localhost:1020")
 
     sml = %(["plantuml", { code: " Foo "}])
-    assert_equal %(<img src="https://localhost:1020/svg/U9npoyy7008Y0IK0" class="plantuml-image" />), render(sml, plantuml_service_host: "https://localhost:1020")
+    assert_equal %(<div><img src="https://localhost:1020/svg/U9npoyy7008Y0IK0" class="plantuml-image" /></div>), render(sml, plantuml_service_host: "https://localhost:1020")
   end
 
   test "video" do
-    sml = %(["video", { src: "/uploads/foo.mov", type: "video/mov", width: 300, height: 200 }])
+    sml = %(["video", { nid: "akjsdn", src: "/uploads/foo.mov", type: "video/mov", width: 300, height: 200 }])
     html = <<~HTML
-    <video controls preload="no" width="300">
+    <video controls preload="no" width="300" nid="akjsdn">
       <source src="/uploads/foo.mov" type="video/mov">
     </video>
     HTML
     assert_html_equal html, render(sml)
 
     # auto fix widith
-    sml = %(["video", { src: "/uploads/foo.mov", type: "video/mov", width: 0 }])
+    sml = %(["video", { nid: "akjsdn", src: "/uploads/foo.mov", type: "video/mov", width: 0 }])
     html = <<~HTML
-    <video controls preload="no" width="100%">
+    <video controls preload="no" width="100%" nid="akjsdn">
       <source src="/uploads/foo.mov" type="video/mov">
     </video>
     HTML
@@ -321,7 +325,7 @@ class BlueDoc::SML::RulesTest < ActiveSupport::TestCase
     SML
 
     html = %(
-    <ul data-level="1">
+    <ul data-level="1" nid="28uu0ut4xdm">
       <li>Bold text</li>
       <li>Important text
         <ul data-level="2">
@@ -364,7 +368,7 @@ class BlueDoc::SML::RulesTest < ActiveSupport::TestCase
     SML
 
     html = <<~HTML
-    <ul data-level="1">
+    <ul data-level="1" nid="rbsdl4hfcz9">
       <li>hello
         <ul data-level="2">
           <li>hello
@@ -388,8 +392,8 @@ class BlueDoc::SML::RulesTest < ActiveSupport::TestCase
   end
 
   test "table" do
-    sml = %(["root",{},["table",{"colsWidth":[60,60,60]},["tr",{},["tc",{"colSpan":1,"rowSpan":1},["p",{},["span",{"t":1},["span",{"t":0},"版本"]]]],["tc",{"colSpan":1,"rowSpan":1},["p",{},["span",{"t":1},["span",{"t":0},"功能"]]]],["tc",{"colSpan":1,"rowSpan":1},["p",{},["span",{"t":1},["span",{"t":0},"说明"]]]]],["tr",{},["tc",{"colSpan":1,"rowSpan":1},["p",{"jc":"left"},["span",{"t":1},["span",{"t":0},"v2.1.0"]]]],["tc",{"colSpan":1,"rowSpan":1},["p",{},["span",{"t":1},["span",{"t":0},"Hello world"]]]],["tc",{"colSpan":1,"rowSpan":1},["p",{},["span",{"t":1},["span",{"t":0},"2018.7.2"]]]]],["tr",{},["tc",{"colSpan":1,"rowSpan":1},["p",{},["span",{"t":1},["span",{"t":0},"v2.0.8"]]]],["tc",{"colSpan":1,"rowSpan":1},["p",{},["span",{"t":1},["span",{"t":0},"修复一处 crash"]]]],["tc",{"colSpan":1,"rowSpan":1},["p",{},["span",{"t":1},["span",{"t":0},"2018.5.21"]]]]]],["p",{},["span",{"t":1},["span",{"t":0},""]]]])
-    html = %(<table><tr><td><p>版本</p></td><td><p>功能</p></td><td><p>说明</p></td></tr><tr><td><p>v2.1.0</p></td><td><p>Hello world</p></td><td><p>2018.7.2</p></td></tr><tr><td><p>v2.0.8</p></td><td><p>修复一处 crash</p></td><td><p>2018.5.21</p></td></tr></table><p></p>)
+    sml = %(["root",{},["table",{ "nid": "Hnsk2", "colsWidth":[60,60,60]},["tr",{},["tc",{"colSpan":1,"rowSpan":1},["p",{},["span",{"t":1},["span",{"t":0},"版本"]]]],["tc",{"colSpan":1,"rowSpan":1},["p",{},["span",{"t":1},["span",{"t":0},"功能"]]]],["tc",{"colSpan":1,"rowSpan":1},["p",{},["span",{"t":1},["span",{"t":0},"说明"]]]]],["tr",{},["tc",{"colSpan":1,"rowSpan":1},["p",{"jc":"left"},["span",{"t":1},["span",{"t":0},"v2.1.0"]]]],["tc",{"colSpan":1,"rowSpan":1},["p",{},["span",{"t":1},["span",{"t":0},"Hello world"]]]],["tc",{"colSpan":1,"rowSpan":1},["p",{},["span",{"t":1},["span",{"t":0},"2018.7.2"]]]]],["tr",{},["tc",{"colSpan":1,"rowSpan":1},["p",{},["span",{"t":1},["span",{"t":0},"v2.0.8"]]]],["tc",{"colSpan":1,"rowSpan":1},["p",{},["span",{"t":1},["span",{"t":0},"修复一处 crash"]]]],["tc",{"colSpan":1,"rowSpan":1},["p",{},["span",{"t":1},["span",{"t":0},"2018.5.21"]]]]]],["p",{},["span",{"t":1},["span",{"t":0},""]]]])
+    html = %(<table nid="Hnsk2"><tr><td><p>版本</p></td><td><p>功能</p></td><td><p>说明</p></td></tr><tr><td><p>v2.1.0</p></td><td><p>Hello world</p></td><td><p>2018.7.2</p></td></tr><tr><td><p>v2.0.8</p></td><td><p>修复一处 crash</p></td><td><p>2018.5.21</p></td></tr></table><p></p>)
     out = render(sml)
 
     assert_equal html, out

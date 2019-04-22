@@ -20,8 +20,9 @@ module BlueDoc::SML::Rules
 
       file_type = (::File.extname(attrs[:name]) || "none").sub(".", "")
 
+      nid_attr = name_by_attrs(attrs)
       out = <<~HTML
-      <a class="attachment-file" title="#{attrs[:name]}" target="_blank" href="#{attrs[:src]}">
+      <a class="attachment-file" title="#{attrs[:name]}" target="_blank" href="#{attrs[:src]}"#{nid_attr}>
         <span class="icon-box"><i class="fas fa-file fa-#{file_type}-file"></i></span>
         <span class="filename">#{escape_html(attrs[:name])}</span>
         <span class="filesize">#{escape_html(humanize_size)}</span>

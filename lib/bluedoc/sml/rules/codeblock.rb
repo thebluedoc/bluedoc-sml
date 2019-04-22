@@ -19,7 +19,9 @@ module BlueDoc::SML::Rules
       language = attrs[:language]
       code = attrs[:code] || ""
 
-      block_code(code, language)
+       nid_attr = name_by_attrs(attrs)
+       html = block_code(code, language)
+       html.sub(%(class="highlight"), %(class="highlight"#{nid_attr}))
     end
   end
 end

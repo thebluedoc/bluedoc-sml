@@ -12,8 +12,8 @@ module BlueDoc::SML::Rules
       attrs = attributes(node)
 
       style_attrs = style_for_attrs(attrs)
-
-      %(<p#{style_attrs}>#{children}</p>)
+      nid_attr = name_by_attrs(attrs)
+      %(<p#{style_attrs}#{nid_attr}>#{children}</p>)
     end
   end
 end

@@ -49,7 +49,7 @@ class BlueDoc::SML::RulesTest < ActiveSupport::TestCase
     out = render(sml)
 
     html = <<~HTML
-    <ul data-level="1">
+    <ul data-level="1" nid="g5zxu3ly1io">
       <li>This is a shorthand
         <ol data-level="2">
           <li>This defines the default size of an element before the remaining space is distributed.</li>
@@ -100,7 +100,7 @@ class BlueDoc::SML::RulesTest < ActiveSupport::TestCase
     out = render(sml)
 
     html = <<~HTML
-    <ul data-level="1">
+    <ul data-level="1" nid="jdewv">
       <li></li>
       <li><span>Contact admin to get</span></li>
     </ul>

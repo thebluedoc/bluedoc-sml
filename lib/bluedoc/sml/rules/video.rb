@@ -20,8 +20,10 @@ module BlueDoc::SML::Rules
         width: width
       )
 
+      nid_attr = name_by_attrs(attrs)
+
       out = <<~HTML
-      <video controls preload="no"#{video_attrs}>
+      <video controls preload="no"#{video_attrs}#{nid_attr}>
         <source src="#{attrs[:src]}" type="#{attrs[:type]}">
       </video>
       HTML

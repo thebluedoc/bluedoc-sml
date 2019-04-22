@@ -9,8 +9,10 @@ module BlueDoc::SML::Rules
     def self.to_html(node, opts = {})
       renderer = opts[:renderer]
       children = renderer.children_to_html(node)
+      attrs = attributes(node)
+      nid_attr = name_by_attrs(attrs)
 
-      %(<table>#{children}</table>)
+      %(<table#{nid_attr}>#{children}</table>)
     end
   end
 end

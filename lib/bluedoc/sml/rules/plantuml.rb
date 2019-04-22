@@ -14,7 +14,8 @@ module BlueDoc::SML::Rules
       return "" if code.blank?
 
       svg_code = BlueDoc::Plantuml.encode(code)
-      %(<img src="#{renderer.config.plantuml_service_host}/svg/#{svg_code}" class="plantuml-image" />)
+      nid_attr = name_by_attrs(attrs)
+      %(<div#{nid_attr}><img src="#{renderer.config.plantuml_service_host}/svg/#{svg_code}" class="plantuml-image" /></div>)
     end
   end
 end
