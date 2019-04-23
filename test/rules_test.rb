@@ -265,7 +265,7 @@ class BlueDoc::SML::RulesTest < ActiveSupport::TestCase
     CODE
 
     sml = %(["plantuml", { nid: "mwelk", code: "#{code}" }])
-    html = %(<div nid="mwelk"><img src="https://localhost:1020/svg/U9npA2v9B2efpSrHSCp9J4vLqBLJSCfFib8eIIqkKN18pKi1IW40vuuCU000" class="plantuml-image" /></div>)
+    html = %(<div nid="mwelk" class="plantuml-box"><img src="https://localhost:1020/svg/U9npA2v9B2efpSrHSCp9J4vLqBLJSCfFib8eIIqkKN18pKi1IW40vuuCU000" class="plantuml-image" /></div>)
     out = render(sml, plantuml_service_host: "https://localhost:1020")
     assert_equal html, out
 
@@ -273,7 +273,7 @@ class BlueDoc::SML::RulesTest < ActiveSupport::TestCase
     assert_equal "", render(sml, plantuml_service_host: "https://localhost:1020")
 
     sml = %(["plantuml", { code: " Foo "}])
-    assert_equal %(<div><img src="https://localhost:1020/svg/U9npoyy7008Y0IK0" class="plantuml-image" /></div>), render(sml, plantuml_service_host: "https://localhost:1020")
+    assert_equal %(<div class="plantuml-box"><img src="https://localhost:1020/svg/U9npoyy7008Y0IK0" class="plantuml-image" /></div>), render(sml, plantuml_service_host: "https://localhost:1020")
   end
 
   test "video" do
