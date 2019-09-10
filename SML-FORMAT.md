@@ -25,7 +25,7 @@ Ruby 实现地址:
 * image - 图片
 * file - 附件
 * video - 视频
-* 更多详见: [rules 实现的内容[](https://github.com/huacnlee/booklab-sml/tree/master/lib/booklab/sml/rules)](https://github.com/thebluedoc/bluedoc-sml/tree/master/lib/booklab/sml/rules)
+* 更多详见: [rules 实现的内容[](https://github.com/thebluedoc/bluedoc-sml/tree/master/lib/bluedoc/sml/rules)](https://github.com/thebluedoc/bluedoc-sml/tree/master/lib/bluedoc/sml/rules)
 
 #### 第 2 段为属性
 
